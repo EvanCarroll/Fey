@@ -1,7 +1,6 @@
 .shipit
 Build.PL
 Changes
-dev/run-cover
 lib/Fey.pm
 lib/Fey/Column.pm
 lib/Fey/Column/Alias.pm
