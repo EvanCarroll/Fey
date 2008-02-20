@@ -11,6 +11,7 @@ use Fey::Validate
         TABLE_OR_NAME_TYPE );
 
 use List::MoreUtils qw( uniq all pairwise );
+use List::Util qw( max );
 use Scalar::Util qw( blessed );
 
 use Moose::Policy 'MooseX::Policy::SemiAffordanceAccessor';
@@ -21,7 +22,7 @@ has 'id' =>
     ( is       => 'ro',
       lazy     => 1,
       default  => \&_make_id,
-      init_arg => "\0id",
+      init_arg => undef,
     );
 
 subtype 'ArrayOfColumns'
@@ -174,6 +175,39 @@ sub is_self_referential
     return $self->source_table()->name() eq $self->target_table()->name();
 }
 
+sub pretty_print
+{
+    my $self = shift;
+
+    my @source_columns = @{ $self->source_columns() };
+    my @target_columns = @{ $self->target_columns() };
+
+    my $longest =
+        max
+        map { length $_->name() }
+        $self->source_table(), $self->target_table(),
+        @source_columns, @target_columns;
+
+    $longest += 2;
+
+    my $string = sprintf( "\%-${longest}s  \%-${longest}s\n",
+                          $self->source_table()->name(),
+                          $self->target_table()->name(),
+                        );
+    $string .= ('-') x $longest;
+    $string .= q{  };
+    $string .= ('-') x $longest;
+    $string .= "\n";
+
+    $string .=
+        ( join '', pairwise { sprintf( "\%-${longest}s  \%-${longest}s\n",
+                                       $a->name(), $b->name() ) }
+          @source_columns, @target_columns
+        );
+
+    return $string;
+}
+
 no Moose;
 __PACKAGE__->meta()->make_immutable();
 
@@ -248,10 +282,19 @@ C<Fey::Table> objects.
 Given a C<Fey::Column> object, this method returns true if the foreign
 key includes the specified column.
 
-=head2 $fk->is_self_referential
+=head2 $fk->is_self_referential()
 
 This returns true if the the source and target tables for the foreign
 key are the same table.
+
+=head2 $fk->pretty_print()
+
+Returns a stringified representation of the foreign key in a pretty
+layout something like this:
+
+  User      Message
+  -------   -------
+  user_id   user_id
 
 =head1 AUTHOR
 
