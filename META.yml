@@ -1,6 +1,6 @@
 ---
 name: Fey
-version: 0.06
+version: 0.07
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Better SQL Generation Through Perl
@@ -8,12 +8,10 @@ license: perl
 resources:
   license: http://dev.perl.org/licenses/
 requires:
-  Class::Accessor::Fast: 0
-  Class::Trait: 0
   Exception::Class: 0
   Exporter: 0
   List::MoreUtils: 0
-  Moose: 0.38
+  Moose: 0.45
   Moose::Policy: 0.03
   MooseX::Policy::SemiAffordanceAccessor: 0.02
   MooseX::StrictConstructor: 0
@@ -31,7 +29,7 @@ recommends:
 provides:
   Fey:
     file: lib/Fey.pm
-    version: 0.06
+    version: 0.07
   Fey::Column:
     file: lib/Fey/Column.pm
   Fey::Column::Alias:

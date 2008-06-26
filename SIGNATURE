@@ -15,14 +15,14 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 5dab9eed5e98d6dde7aa3cc5d5016e758dec4c98 .shipit
-SHA1 8cd414d66504b3133ffb03bd861d1cef672ec232 Build.PL
-SHA1 1bbc9ee8a8bc2895532cc1a34c09aa0b835a9cbe Changes
+SHA1 87f8b746816097e3a96939b6cdf37cfd22c02aa6 Build.PL
+SHA1 2deb27b9c94d149f4e9b7927b370a5d3d6b32990 Changes
 SHA1 f235ba4160673bcb7c9d58c2f09dbc7fc0efadea LICENSE
 SHA1 725b25322712621fc3e249e22b240d4c3a2ce986 MANIFEST
-SHA1 cb27d1622ed52347fc7dc8c84076874b454706f2 META.yml
+SHA1 ba62a858b34ac3f35a1e98d178dc30dffdef675f META.yml
 SHA1 cd14ada78fb37a0d926edd86eddcdf7f939de582 Makefile.PL
-SHA1 56c9214cd76a1adcf2bdd639630dbf97df7309f2 README
-SHA1 611a9b34b7338520702a8d80a1ec190744442602 lib/Fey.pm
+SHA1 05d47f4083eb0f98cdb0cee196d68c55c720b14d README
+SHA1 17543b248507e79f4f29622ee1d35dac92aa6f10 lib/Fey.pm
 SHA1 19fee3ffc9eec8e394b8b4b76d357a9f60739051 lib/Fey/Column.pm
 SHA1 426f7ffe8e839410255fc3111cab8097f25ece38 lib/Fey/Column/Alias.pm
 SHA1 71972ba39945efe036da3ccd4e6511bcb1f6dfdf lib/Fey/Exceptions.pm
@@ -48,14 +48,14 @@ SHA1 1f0324e875ead714c029b8cf4b1ea1f98b04982f lib/Fey/Role/SQL/HasWhereClause.pm
 SHA1 8e81c9e26c1277c47532e10381b4b41d1eb635e4 lib/Fey/Role/Selectable.pm
 SHA1 6757d086f12e9280dadaa87aad0f7dcc1dfb3262 lib/Fey/SQL.pm
 SHA1 f42065743634495dbf545aef5b0ca9f38840a64b lib/Fey/SQL/Delete.pm
-SHA1 05af21a087041cee07078fe68d37377035868b70 lib/Fey/SQL/Fragment/Join.pm
+SHA1 5e7cb52244e7cb715371f11bc1f4892fc39f1c1a lib/Fey/SQL/Fragment/Join.pm
 SHA1 8f64205020f6f2ce7b784859accdb107ad7493a3 lib/Fey/SQL/Fragment/SubSelect.pm
 SHA1 ce2dea55942d80b74a2f044722292b4c2459a4fe lib/Fey/SQL/Fragment/Where/Boolean.pm
 SHA1 5ea73dda8158e51767350b8a18f9f2710160bba9 lib/Fey/SQL/Fragment/Where/Comparison.pm
 SHA1 e64052c6ad304b5b1e0635da1dda79f6622acc92 lib/Fey/SQL/Fragment/Where/SubgroupEnd.pm
 SHA1 929b284e751e8ff68ab90517aa581cdc5788e586 lib/Fey/SQL/Fragment/Where/SubgroupStart.pm
 SHA1 2a793605d526e4ab255fe02ad9cb5a8f2f7a6e4c lib/Fey/SQL/Insert.pm
-SHA1 da528bb3015884ff4d4d8754c35e08027bbad701 lib/Fey/SQL/Select.pm
+SHA1 7a3c32de877f5c2526c28806b7605dfef7f9698b lib/Fey/SQL/Select.pm
 SHA1 2df38b323c4fc041c39b5512090bdb254fb78f6f lib/Fey/SQL/Update.pm
 SHA1 ede88ca4ebeda45030eefe421631d136a91e4f49 lib/Fey/SQL/Where.pm
 SHA1 054a3a256ab51524f082380ed09cae8fde297f10 lib/Fey/Schema.pm
@@ -78,8 +78,8 @@ SHA1 6df708453af3ba79ebcdd0753ffec39259be50bf t/SQL.t
 SHA1 0c98700c4cecb3629d1d868af9f0568648088f25 t/SQL/Delete.t
 SHA1 dd61da7ff95dbc7fa8aef48fbe8fa9b73e9308ab t/SQL/Insert-bind-params.t
 SHA1 380676390501324d78855acbfcbdfd06d4f74b77 t/SQL/Insert.t
-SHA1 f2cb1d559e9a41579e6b0a40dc896cdf560fafef t/SQL/Select-bind-params.t
-SHA1 f172ddc12d8117325dfa0f4525b1ddb2c07c3d0d t/SQL/Select-from-clause.t
+SHA1 97968afe39b17762fbdc8271c2572c492423e265 t/SQL/Select-bind-params.t
+SHA1 2dbc95adfd4887ba70704ad24c36366146cca4b7 t/SQL/Select-from-clause.t
 SHA1 30f28f32a3632fee923fcea7572f6047741cb5de t/SQL/Select-group-by-clause.t
 SHA1 22d2565c4b7dcbc7007fe634fb6cc1e93985b1aa t/SQL/Select-having-clause.t
 SHA1 b60454ba189349ef593618343fa0e04c1d5013b7 t/SQL/Select-select-clause.t
@@ -96,7 +96,7 @@ SHA1 fa09e1f76e152d19f3f46fd2b13b8b6810a04666 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.6 (GNU/Linux)
 
-iD8DBQFH0LGO3Or3ZzQuifMRAuKWAJsFNaVBHvVLyb7wvSMM7z0ytm74/gCffT9b
-0zj0uofVBGp4ZN9nhfqxsME=
-=JmnF
+iD8DBQFIY1NL3Or3ZzQuifMRAmOJAJ9i6q1aVwyeCwRPU9vn0EsYjXvAGgCeMS0b
+1GJsDZhvh9/KbuhNnJNs+28=
+=6ebg
 -----END PGP SIGNATURE-----
