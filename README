@@ -7,6 +7,7 @@ SYNOPSIS
       use Fey::Schema;
       use Fey::SQL;
 
+
       my $schema = hand_waving();
 
       my $user  = $schema->table('User');
@@ -280,27 +281,31 @@ WHY IS IT NAMED Fey?
     thoughts leading to Fey. Reading this will may give you an unpleasant
     insight into my mind. You have been warned.
 
-    * SQLy
+    *   SQLy
+
         This module is "SQL-y", as in "related to SQL". However, this name
         is bad for a number of reasons. First, it's not clear how to
         pronounce it. It may make you think of a YACC grammar ("SQL.y").
         It's a weird combo of upper- and lower-case letters.
 
-    * SQLy => Squall
+    *   SQLy => Squall
+
         "SQLy" and "Squall" share a number of letters, obviously.
 
         Squall is a single short word, which is good. However, it's a bit
         awkward to type and has a somewhat negative meaning to me, because a
         storm can mean trouble.
 
-    * Squall => Lionheart => Faye
+    *   Squall => Lionheart => Faye
+
         Squall Lionheart is a character in Final Fantasy VIII, which IMO is
         the best Final Fantasy game before the PS2.
 
         The inimitable Faye Wong sang the theme song for FF VIII. I love
         Faye Wong.
 
-    * Faye => Fey
+    *   Faye => Fey
+
         And thus we arrive at "Fey". It's nice and short, easy to type, and
         easy to say.
 
