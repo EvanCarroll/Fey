@@ -20,33 +20,32 @@ has 'function' =>
       required => 1,
     );
 
-subtype 'FunctionArg'
+subtype 'Fey.Type.FunctionArg'
     => as 'Object'
     => where { $_->does('Fey::Role::Selectable') };
 
-coerce 'FunctionArg'
+coerce 'Fey.Type.FunctionArg'
     => from 'Undef'
     => via { Fey::Literal::Null->new() }
     => from 'Value'
     => via { Fey::Literal->new_from_scalar($_) };
 
 {
-    my $constraint = find_type_constraint('FunctionArg');
-    subtype 'FunctionArgs'
+    my $constraint = find_type_constraint('Fey.Type.FunctionArg');
+    subtype 'Fey.Type.ArrayRefOfFunctionArgs'
         => as 'ArrayRef'
         => where { for my $arg ( @{$_} ) { $constraint->check($arg) || return; } 1; };
 
-    coerce 'FunctionArgs'
+    coerce 'Fey.Type.ArrayRefOfFunctionArgs'
         => from 'ArrayRef'
         => via { [ map { $constraint->coerce($_) } @{ $_ } ] };
 }
 
 has 'args' =>
     ( is         => 'ro',
-      isa        => 'FunctionArgs',
+      isa        => 'Fey.Type.ArrayRefOfFunctionArgs',
       default    => sub { [] },
       coerce     => 1,
-      auto_deref => 1,
     );
 
 has 'alias_name' =>
@@ -56,13 +55,13 @@ has 'alias_name' =>
     );
 
 
-sub new
+sub BUILDARGS
 {
     my $class = shift;
 
-    return $class->SUPER::new( function => shift,
-                               args     => [ @_ ],
-                             );
+    return { function => shift,
+             args     => [ @_ ],
+           };
 }
 
 sub sql
@@ -73,7 +72,7 @@ sub sql
     $sql .=
         ( join ', ',
           map { $_->sql( $_[1] ) }
-          $_[0]->args()
+          @{ $_[0]->args() }
         );
     $sql .= ')';
 }
@@ -112,6 +111,8 @@ sub sql_or_alias
 sub is_groupable { $_[0]->alias_name() ? 1 : 0 }
 
 no Moose;
+no Moose::Util::TypeConstraints;
+
 __PACKAGE__->meta()->make_immutable();
 
 1;
@@ -162,7 +163,8 @@ The function's name, as passed to the constructor.
 
 =head2 $function->args()
 
-Returns the function's arguments, as passed to the constructor.
+Returns an array reference of the function's arguments, as passed to
+the constructor.
 
 =head2 $function->sql()
 

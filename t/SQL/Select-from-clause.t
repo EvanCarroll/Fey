@@ -4,7 +4,7 @@ use warnings;
 use lib 't/lib';
 
 use Fey::Test;
-use Test::More tests => 28;
+use Test::More tests => 31;
 
 use Fey::SQL;
 
@@ -94,6 +94,26 @@ my $dbh = Fey::Test->mock_dbh();
     my $q = Fey::SQL->new_select()->select();
 
     $q->from( $s->table('User'), $s->table('UserGroup') );
+    $q->from( $s->table('UserGroup'), $s->table('Group') );
+
+    # This is totally bogus, but we want to test a call to from() that
+    # involves two tables we've already seen.
+    my $fake_fk = Fey::FK->new( source_columns => $s->table('User')->column('user_id'),
+                                target_columns => $s->table('Group')->column('group_id'),
+                              );
+    $q->from( $s->table('User'), $s->table('Group'), $fake_fk );
+
+    my $sql = q{FROM "User" JOIN "Group" ON ("User"."user_id" = "Group"."group_id")};
+    $sql .= q{ JOIN "UserGroup" ON ("UserGroup"."user_id" = "User"."user_id")};
+
+    is( $q->_from_clause($dbh), $sql,
+        '_from_clause() for two joins' );
+}
+
+{
+    my $q = Fey::SQL->new_select()->select();
+
+    $q->from( $s->table('User'), $s->table('UserGroup') );
     $q->from( $s->table('Group'), $s->table('UserGroup') );
 
     my $sql = q{FROM "Group" JOIN "UserGroup" ON ("UserGroup"."group_id" = "Group"."group_id")};
@@ -152,6 +172,19 @@ my $dbh = Fey::Test->mock_dbh();
     $sql .= q{ ON ("UserGroup"."user_id" = "User"."user_id")};
     is( $q->_from_clause($dbh), $sql,
         '_from_clause() for two tables with left outer join' );
+}
+
+{
+    my $q = Fey::SQL->new_select()->select();
+
+    $q->from( $s->table('User'), $s->table('UserGroup') );
+    $q->from( $s->table('UserGroup'), 'left', $s->table('Group') );
+
+    my $sql = q{FROM "User" JOIN "UserGroup" ON ("UserGroup"."user_id" = "User"."user_id")};
+    $sql .= q{ LEFT OUTER JOIN "Group" ON ("UserGroup"."group_id" = "Group"."group_id")};
+
+    is( $q->_from_clause($dbh), $sql,
+        '_from_clause() for regular join + left outer join' );
 }
 
 {
@@ -295,6 +328,15 @@ my $dbh = Fey::Test->mock_dbh();
     eval { $q->from($table) };
     like( $@, qr/\Qfrom() called with invalid parameters/,
           'cannot pass a table without a schema to from()' );
+}
+
+{
+    my $q = Fey::SQL->new_select()->select();
+    my $table = Fey::Table->new( name => 'NewTable' );
+
+    eval { $q->from( $table, $s->table('User') ) };
+    like( $@, qr/\Qthe first two arguments to from() were not valid (not tables or something else joinable)/,
+          'cannot pass a table without a schema to from() as part of a join' );
 }
 
 {

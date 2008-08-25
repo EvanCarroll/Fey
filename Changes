@@ -1,3 +1,19 @@
+0.10    2008-08-25
+
+- Optimizations to cache frequently used (and rarely changing) method
+  return values as attributes.
+
+- As a result of the above, several methods that used to return arrays
+  now return array references. These are Fey::FK->column_pairs(),
+  Fey::Table->candidate_keys(), and Fey::Table->primary_key(), and
+  Fey::Literal::Function->args().
+
+- Overloaded objects are now handled (mostly) correctly when used as
+  parameters in SQL statements. I say mostly because overloading in
+  Perl is so broken that it's not possible to deal with them 100%
+  correctly.
+
+
 0.09    2008-07-31
 
 - If a where clause had a subgroup after a comparison (like "WHERE x =

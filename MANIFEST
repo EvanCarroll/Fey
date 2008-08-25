@@ -64,6 +64,7 @@ t/SQL-limit-clause.t
 t/SQL-order-by-clause.t
 t/SQL-where-clause.t
 t/SQL.t
+t/SQL/Delete-bind-params.t
 t/SQL/Delete.t
 t/SQL/Insert-bind-params.t
 t/SQL/Insert.t

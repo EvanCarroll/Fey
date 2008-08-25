@@ -4,7 +4,7 @@ use warnings;
 use lib 't/lib';
 
 use Fey::Test;
-use Test::More tests => 25;
+use Test::More tests => 36;
 
 use Fey::Placeholder;
 use Fey::SQL;
@@ -260,4 +260,116 @@ my $dbh = Fey::Test->mock_dbh();
 
     is( $q->_where_clause($dbh), q{WHERE "User"."user_id" IS NULL},
         'undef in comparison (=) with auto placeholders' );
+}
+
+{
+    my $q = Fey::SQL->new_select( auto_placeholders => 0 )->select();
+
+    $q->where( $s->table('User')->column('user_id'), '=', Fey::Placeholder->new() );
+
+    is( $q->_where_clause($dbh), q{WHERE "User"."user_id" = ?},
+        'explicit placeholder object in comparison (=)' );
+}
+
+{
+    package Num;
+
+    use overload '0+' => sub { ${ $_[0] } };
+
+    sub new
+    {
+        my $num = $_[1];
+        return bless \$num, __PACKAGE__;
+    }
+}
+
+{
+    my $q = Fey::SQL->new_select( auto_placeholders => 1 )->select();
+
+    $q->where( $s->table('User')->column('user_id'), '=', Num->new(2) );
+
+    is( $q->_where_clause($dbh), q{WHERE "User"."user_id" = ?},
+        'overloaded object in comparison (=) with auto placeholders' );
+
+    is( ( $q->bind_params() )[0], 2,
+               q{bind_params() contains overloaded object's value} );
+}
+
+{
+    my $q = Fey::SQL->new_select( auto_placeholders => 0 )->select();
+
+    $q->where( $s->table('User')->column('user_id'), '=', Num->new(2) );
+
+    is( $q->_where_clause($dbh), q{WHERE "User"."user_id" = 2},
+        'overloaded object in comparison (=) without auto placeholders' );
+}
+
+{
+    package Str;
+
+    use overload q{""} => sub { ${ $_[0] } };
+
+    sub new
+    {
+        my $str = $_[1];
+        return bless \$str, __PACKAGE__;
+    }
+}
+
+{
+    my $q = Fey::SQL->new_select( auto_placeholders => 1 )->select();
+
+    $q->where( $s->table('User')->column('user_id'), '=', Str->new('two') );
+
+    is( $q->_where_clause($dbh), q{WHERE "User"."user_id" = ?},
+        'overloaded object in comparison (=) with auto placeholders' );
+    is_deeply( [ $q->bind_params() ], [ 'two' ],
+               q{bind_params() contains overloaded object's value} );
+}
+
+{
+    my $q = Fey::SQL->new_select( auto_placeholders => 0 )->select();
+
+    $q->where( $s->table('User')->column('user_id'), '=', Str->new('two') );
+
+    is( $q->_where_clause($dbh), q{WHERE "User"."user_id" = 'two'},
+        'overloaded object in comparison (=) without auto placeholders' );
+}
+
+{
+    my $q = Fey::SQL->new_select( auto_placeholders => 0 )->select();
+
+    eval { $q->where( $s->table('User')->column('user_id'), '=', bless {}, 'Foo' ) };
+    like( $@, qr/\QCannot pass an object as part of a where clause comparison unless that object does Fey::Role::Comparable or is overloaded/,
+          'get expected error when passing an unacceptable object as part of a comparison' );
+}
+
+SKIP:
+{
+    skip 'These tests require DateTime.pm and DateTime::Format::MySQL', 3
+        unless eval { require DateTime; require DateTime::Format::MySQL; 1 };
+
+    my $dt = DateTime->new( year      => 2008,
+                            month     => 2,
+                            day       => 24,
+                            hour      => 12,
+                            minute    => 30,
+                            second    => 47,
+                            time_zone => 'UTC',
+                            formatter => DateTime::Format::MySQL->new(),
+                          );
+
+    my $q = Fey::SQL->new_select( auto_placeholders => 1 )->select();
+    $q->where( $s->table('User')->column('username'), '=', $dt );
+
+    is( $q->_where_clause($dbh), q{WHERE "User"."username" = ?},
+        'overloaded DateTime object in comparison (=) with auto placeholders' );
+    is_deeply( [ $q->bind_params() ], [ '2008-02-24 12:30:47' ],
+               q{bind_params() contains overloaded object's value} );
+
+    $q = Fey::SQL->new_select( auto_placeholders => 0 )->select();
+    $q->where( $s->table('User')->column('username'), '=', $dt );
+
+    is( $q->_where_clause($dbh), q{WHERE "User"."username" = '2008-02-24 12:30:47'},
+        'overloaded DateTime object in comparison (=) without auto placeholders' );
 }

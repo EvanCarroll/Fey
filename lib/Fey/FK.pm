@@ -10,6 +10,7 @@ use Fey::Validate
         COLUMN_TYPE
         TABLE_OR_NAME_TYPE );
 
+use Fey::Column;
 use List::MoreUtils qw( uniq all pairwise );
 use List::Util qw( max );
 use Scalar::Util qw( blessed );
@@ -24,29 +25,49 @@ has 'id' =>
       init_arg   => undef,
     );
 
-subtype 'ArrayOfColumns'
+subtype 'Fey.Type.ArrayRefOfColumns'
     => as 'ArrayRef'
     => where { @{ $_ } >= 1 && all { $_ && $_->isa('Fey::Column') } @{$_} };
 
-coerce 'ArrayOfColumns'
+coerce 'Fey.Type.ArrayRefOfColumns'
     => from 'Fey::Column'
     => via { [ $_ ] };
 
-has 'source_columns' =>
-    ( is       => 'ro',
-      isa      => 'ArrayOfColumns',
-      required => 1,
-      coerce   => 1,
+for my $attr ( qw( source_columns target_columns ) )
+{
+    has $attr =>
+        ( is       => 'ro',
+          isa      => 'Fey.Type.ArrayRefOfColumns',
+          required => 1,
+          coerce   => 1,
+        );
+}
+
+for my $attr ( qw( source_table target_table ) )
+{
+    has $attr =>
+        ( is         => 'ro',
+          isa        => 'Fey::Table | Fey::Table::Alias',
+          lazy_build => 1,
+          init_arg   => undef,
+        );
+}
+
+has column_pairs =>
+    ( is         => 'ro',
+      # really, the inner array refs must always contain 2 columns,
+      # but we don't have structured constraints quite yet.
+      isa        => 'ArrayRef[ArrayRef[Fey::Column]]',
+      lazy_build => 1,
+      init_arg   => undef,
     );
 
-has 'target_columns' =>
-    ( is       => 'ro',
-      isa      => 'ArrayOfColumns',
-      required => 1,
-      coerce   => 1,
+has is_self_referential =>
+    ( is         => 'ro',
+      isa        => 'Bool',
+      lazy_build => 1,
+      init_arg   => 1,
     );
-
-use Fey::Column;
 
 
 sub BUILD
@@ -94,24 +115,24 @@ sub _build_id
         );
 }
 
-sub column_pairs
+sub _build_column_pairs
 {
     my $self = shift;
 
     my @s = @{ $self->source_columns() };
     my @t = @{ $self->target_columns() };
 
-    return pairwise { [ $a, $b ] } @s, @t;
+    return [ pairwise { [ $a, $b ] } @s, @t ];
 }
 
-sub source_table
+sub _build_source_table
 {
     my $self = shift;
 
     return $self->source_columns()->[0]->table();
 }
 
-sub target_table
+sub _build_target_table
 {
     my $self = shift;
 
@@ -167,7 +188,7 @@ sub target_table
     }
 }
 
-sub is_self_referential
+sub _build_is_self_referential
 {
     my $self = shift;
 
@@ -208,6 +229,8 @@ sub pretty_print
 }
 
 no Moose;
+no Moose::Util::TypeConstraints;
+
 __PACKAGE__->meta()->make_immutable();
 
 1;
@@ -266,9 +289,9 @@ reference.
 
 =head2 $fk->column_pairs()
 
-Returns a list of array references. Each reference contains two
-C<Fey::Column> objects, one from the source table and one from the
-target.
+Returns an array reference. Each element of this reference is in turn
+a two-element array reference of C<Fey::Column> objects, one from the
+source table and one from the target.
 
 =head2 $fk->has_tables( $table1, $table2 )
 

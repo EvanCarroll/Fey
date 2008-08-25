@@ -14,11 +14,23 @@ use Fey::Validate
         COLUMN_TYPE COLUMN_OR_NAME_TYPE
         SCHEMA_TYPE );
 
+use Fey::Column;
+use Fey::NamedObjectSet;
+use Fey::Schema;
+use Fey::Table::Alias;
+
 use Moose::Policy 'MooseX::Policy::SemiAffordanceAccessor';
+use MooseX::AttributeHelpers;
 use MooseX::StrictConstructor;
 use Moose::Util::TypeConstraints;
 
 with 'Fey::Role::Joinable';
+
+has 'id' =>
+    ( is         => 'ro',
+      lazy_build => 1,
+      init_arg   => undef,
+    );
 
 has 'name' =>
     ( is       => 'ro',
@@ -32,7 +44,7 @@ has 'is_view' =>
       default => 0,
     );
 
-subtype 'ArrayOfNamedObjectSets'
+subtype 'Fey.Type.ArrayRefOfNamedObjectSets'
     => as 'ArrayRef'
     => where { for my $arg ( @{ $_ } )
                {
@@ -42,9 +54,13 @@ subtype 'ArrayOfNamedObjectSets'
              };
 
 has '_keys' =>
-    ( is         => 'rw',
-      isa        => 'ArrayOfNamedObjectSets',
-      default    => sub { [] },
+    ( metaclass => 'MooseX::AttributeHelpers::Collection::Array',
+      is        => 'rw',
+      isa       => 'Fey.Type.ArrayRefOfNamedObjectSets',
+      default   => sub { [] },
+      provides  => { push   => '_add_key',
+                     delete => '_delete_key',
+                   },
     );
 
 has '_columns' =>
@@ -61,14 +77,31 @@ has 'schema' =>
       isa       => 'Undef | Fey::Schema',
       weak_ref  => 1,
       writer    => '_set_schema',
+      clearer   => '_clear_schema',
       predicate => 'has_schema',
     );
 
-use Fey::Column;
-use Fey::NamedObjectSet;
-use Fey::Schema;
-use Fey::Table::Alias;
-use Scalar::Util qw( blessed );
+has 'candidate_keys' =>
+    ( is         => 'ro',
+      isa        => 'ArrayRef[ArrayRef[Fey::Column]]',
+      clearer    => '_clear_candidate_keys',
+      lazy_build => 1,
+      init_arg   => undef,
+    );
+
+after '_add_key', '_delete_key' =>
+    sub { $_[0]->_clear_candidate_keys() };
+
+has 'primary_key' =>
+    ( is         => 'ro',
+      isa        => 'ArrayRef[Fey::Column]',
+      clearer    => '_clear_primary_key',
+      lazy_build => 1,
+      init_arg   => undef,
+    );
+
+after '_clear_candidate_keys' =>
+    sub { $_[0]->_clear_primary_key() };
 
 
 {
@@ -119,26 +152,26 @@ use Scalar::Util qw( blessed );
 
         $self->_columns()->delete($col);
 
-        $col->_set_table(undef);
+        $col->_clear_table();
 
         return $self;
     }
 }
 
-sub candidate_keys
+sub _build_candidate_keys
 {
     my $self = shift;
 
-    return map { [ $_->objects() ] } @{ $self->_keys() };
+    return [ map { [ $_->objects() ] } @{ $self->_keys() } ];
 }
 
-sub primary_key
+sub _build_primary_key
 {
     my $self = shift;
 
-    my @keys = $self->candidate_keys();
+    my $keys = $self->candidate_keys();
 
-    return  @{ $keys[0] || [] };
+    return $keys->[0] || [];
 }
 
 {
@@ -158,11 +191,7 @@ sub primary_key
 
         return if $self->has_candidate_key(@cols);
 
-        my $keys = $self->_keys();
-
-        my $set = Fey::NamedObjectSet->new(@cols);
-
-        push @{ $keys }, $set;
+        $self->_add_key( Fey::NamedObjectSet->new(@cols) );
 
         return;
     }
@@ -183,12 +212,11 @@ sub primary_key
 
         $_ = $self->column($_) for grep { ! blessed $_ } @cols;
 
-        my $keys = $self->_keys();
-
         my $set = Fey::NamedObjectSet->new(@cols);
 
-        my $idx = first_index { $_->is_same_as($set) } @{ $keys };
-        splice @{ $keys }, $idx, 1
+        my $idx = first_index { $_->is_same_as($set) } @{ $self->_keys() };
+
+        $self->_delete_key( $idx, 1 )
             if $idx >= 0;
 
         return;
@@ -236,9 +264,11 @@ sub sql
 
 sub sql_with_alias { goto &sql }
 
-sub id { $_[0]->name() }
+sub _build_id { $_[0]->name() }
 
 no Moose;
+no Moose::Util::TypeConstraints;
+
 __PACKAGE__->meta()->make_immutable();
 
 1;
@@ -336,9 +366,9 @@ the table, then it is ignored.
 
 =head2 $table->candidate_keys()
 
-Returns all of the candidate keys for the table as a list. Each
-element of the list is an array reference containing one or more
-columns.
+Returns all of the candidate keys for the table as an array
+reference. Each element of the reference is in turn an array reference
+containing one or more columns.
 
 =head2 $table->has_candidate_key(@columns)
 
@@ -364,16 +394,11 @@ can contain either names or C<Fey::Column> objects.
 If a name or column is specified which doesn't belong to the table, an
 exception will be thrown.
 
-=head2 $table->keys()
-
-Returns a list of all the candidate keys. Each items in the list is an
-array reference containing one or more column objects.
-
 =head2 $table->primary_key()
 
 This is a convenience method that simply returns the first candidate
-key added to the table. The key is returned as a list of column
-objects.
+key added to the table. The key is returned as an array reference of
+column objects.
 
 =head2 $table->alias(%p)
 

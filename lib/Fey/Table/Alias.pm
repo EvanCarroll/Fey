@@ -16,6 +16,13 @@ use MooseX::StrictConstructor;
 
 with 'Fey::Role::Joinable';
 
+
+has 'id' =>
+    ( is         => 'ro',
+      lazy_build => 1,
+      init_arg   => undef,
+    );
+
 has 'table' =>
     ( is      => 'ro',
       isa     => 'Fey::Table',
@@ -71,7 +78,12 @@ sub columns
     return map { $self->column($_) } @cols;
 }
 
-sub primary_key { return $_[0]->columns( map { $_->name() } $_[0]->table()->primary_key ) }
+# Making this an attribute would be a hassle since we'd need to reset
+# it whenever the associated table's keys changed.
+sub primary_key
+{
+    return [ $_[0]->columns( map { $_->name() } @{ $_[0]->table()->primary_key() } ) ];
+}
 
 sub is_alias { 1 }
 
@@ -84,7 +96,7 @@ sub sql_with_alias
         );
 }
 
-sub id { $_[0]->alias_name() }
+sub _build_id { $_[0]->alias_name() }
 
 no Moose;
 __PACKAGE__->meta()->make_immutable();

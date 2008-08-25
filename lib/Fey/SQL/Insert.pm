@@ -17,6 +17,7 @@ use Fey::Validate
         DBI_TYPE
       );
 
+use overload ();
 use Scalar::Util qw( blessed );
 
 
@@ -36,20 +37,22 @@ sub insert { return $_[0] }
     my $nullable_col_value_type =
     { type      => SCALAR|UNDEF|OBJECT,
       callbacks =>
-      { 'literal, placeholder, scalar, or undef' =>
+      { 'literal, placeholder, scalar, overloaded object, or undef' =>
         sub {    ! blessed $_[0]
               || $_[0]->isa('Fey::Literal')
-              || $_[0]->isa('Fey::Placeholder') }
+              || $_[0]->isa('Fey::Placeholder')
+              || overload::Overloaded( $_[0] ) }
       },
     };
 
     my $non_nullable_col_value_type =
         { type      => SCALAR|OBJECT,
           callbacks =>
-          { 'literal, placeholder, or scalar' =>
+          { 'literal, placeholder,, scalar, or overloaded object' =>
             sub {    ! blessed $_[0]
                   || ( $_[0]->isa('Fey::Literal') && ! $_[0]->isa('Fey::Literal::Null') )
-                  || $_[0]->isa('Fey::Placeholder') }
+                  || $_[0]->isa('Fey::Placeholder')
+                  || overload::Overloaded( $_[0] ) }
           },
         };
 
@@ -83,7 +86,10 @@ sub insert { return $_[0] }
 
         for ( values %vals )
         {
-            unless ( blessed $_ )
+            $_ .= ''
+                if blessed $_ && overload::Overloaded($_);
+
+            if ( ! blessed $_ )
             {
                 if ( defined $_ && $self->auto_placeholders() )
                 {
@@ -191,8 +197,13 @@ Fey::SQL::Insert - Represents a INSERT query
   #      VALUES
   #             (?, ?, ?)
   $sql->insert()->into($Part);
+
   my $ph = Fey::Placeholder->new();
-  $sql->values( $ph, $ph, $ph );
+
+  $sql->values( part_id  => $ph,
+                name     => $ph,
+                quantity => $ph,
+              );
 
   print $sql->sql($dbh);
 
@@ -220,7 +231,7 @@ This method specifies the C<INTO> clause of the query. It expects a
 list of L<Fey::Column> and/or L<Fey::Table> objects, but not aliases.
 
 If you pass a table object, then the C<INTO> will include all of that
-table's column, in the order returned by the C<< $table->columns() >>
+table's columns, in the order returned by the C<< $table->columns() >>
 method.
 
 Most RDBMS implementations only allow for a single table here, but
@@ -228,8 +239,9 @@ some (like MySQL) do allow for multi-table inserts.
 
 =head2 $insert->values(...)
 
-This method takes a list of values. Each value can be of the
-following:
+This method takes a hash reference where the keys are column names,
+and values are the value to be inserted for that column. Each value
+can be of the following:
 
 =over 4
 

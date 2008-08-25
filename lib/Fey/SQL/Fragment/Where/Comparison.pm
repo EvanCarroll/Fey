@@ -17,6 +17,7 @@ use Scalar::Util qw( blessed );
 use Fey::SQL::Fragment::SubSelect;
 use Fey::Literal;
 use Fey::Placeholder;
+use overload ();
 
 use constant LHS         => 0;
 use constant COMP        => 1;
@@ -29,13 +30,13 @@ our $in_comp_re = qr/^(?:not\s+)?in$/i;
 {
     my $comparable = 
         { type      => UNDEF|SCALAR|OBJECT,
-          callbacks =>
-          { 'is comparable' =>
+          'is comparable' =>
             sub {    ! blessed $_[0]
                   || (    $_[0]->can('is_comparable')
                        && $_[0]->is_comparable()
-                     ) },
-          },
+                     )
+                  || overload::Overloaded( $_[0] )
+                },
         };
 
     my $operator = SCALAR_TYPE;
@@ -54,32 +55,52 @@ our $in_comp_re = qr/^(?:not\s+)?in$/i;
         my @bind;
         for ( $lhs, @rhs )
         {
-            unless ( blessed $_ && $_->can('is_comparable') )
+            if ( blessed $_ && $_->can('is_comparable') )
             {
-                if ( defined $_ && $auto_placeholders )
+                if ( $_->isa('Fey::SQL::Select') )
                 {
-                    push @bind, $_;
+                    push @bind, $_->bind_params();
 
-                    $_ = Fey::Placeholder->new();
+                    $_ = Fey::SQL::Fragment::SubSelect->new($_);
+                }
+
+                next;
+            }
+
+            if ( blessed $_ )
+            {
+                if ( overload::Overloaded($_) )
+                {
+                    # This "de-references" the value, which will make
+                    # things simpler when we pass it to DBI, test
+                    # code, etc. It works fine with numbers, more or
+                    # less (see Fey::Literal).
+                    $_ .= '';
                 }
                 else
                 {
-                    $_ = Fey::Literal->new_from_scalar($_);
+                    param_error "Cannot pass an object as part of a where clause comparison"
+                                . " unless that object does Fey::Role::Comparable or is overloaded.";
                 }
             }
 
-            if ( $_->isa('Fey::SQL::Select') )
+            if ( defined $_ && $auto_placeholders )
             {
-                push @bind, $_->bind_params();
+                push @bind, $_;
 
-                $_ = Fey::SQL::Fragment::SubSelect->new($_);
+                $_ = Fey::Placeholder->new();
             }
+            else
+            {
+                $_ = Fey::Literal->new_from_scalar($_);
+            }
+
         }
 
         if ( grep { $_->isa('Fey::SQL::Fragment::SubSelect') } @rhs )
         {
             param_error "Cannot use a subselect on the right-hand side with $comp"
-                unless $comp =~ $in_comp_re;
+                unless $comp =~ /$in_comp_re/;
         }
 
         if ( lc $comp eq 'between' )

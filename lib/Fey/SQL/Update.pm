@@ -21,6 +21,7 @@ use Fey::Validate
       );
 
 use Fey::Literal;
+use overload ();
 use Scalar::Util qw( blessed );
 
 
@@ -59,22 +60,24 @@ use Scalar::Util qw( blessed );
     my $nullable_col_value_type =
         { type      => SCALAR|UNDEF|OBJECT,
           callbacks =>
-          { 'literal, placeholder, column, undef, or scalar' =>
+          { 'literal, placeholder, column, overloaded object, scalar, or undef' =>
             sub {    ! blessed $_[0]
                   || ( $_[0]->isa('Fey::Column') && ! $_[0]->is_alias() )
                   || $_[0]->isa('Fey::Literal')
-                  || $_[0]->isa('Fey::Placeholder') },
+                  || $_[0]->isa('Fey::Placeholder')
+                  || defined $_[0] && overload::Overloaded( $_[0] ) },
           },
         };
 
     my $non_nullable_col_value_type =
         { type      => SCALAR|OBJECT,
           callbacks =>
-          { 'literal, placeholder, column, or scalar' =>
+          { 'literal, placeholder, column, overloaded object, or scalar' =>
             sub {    ! blessed $_[0]
                   || ( $_[0]->isa('Fey::Column') && ! $_[0]->is_alias() )
                   || ( $_[0]->isa('Fey::Literal') && ! $_[0]->isa('Fey::Literal::Null') )
-                  || $_[0]->isa('Fey::Placeholder') },
+                  || $_[0]->isa('Fey::Placeholder')
+                  || overload::Overloaded( $_[0] ) },
           },
         };
 
@@ -105,9 +108,12 @@ use Scalar::Util qw( blessed );
         {
             my $val = $_[ $x + 1 ];
 
-            unless ( blessed $val )
+            $val .= ''
+                if blessed $val && overload::Overloaded($val);
+
+            if ( ! blessed $val )
             {
-                if ( $self->auto_placeholders() )
+                if ( defined $val && $self->auto_placeholders() )
                 {
                     push @{ $self->{bind_params} }, $val;
 

@@ -16,7 +16,7 @@ use Fey::Schema;
     eval { Fey::FK->new( source_columns => [],
                          target_columns => [],
                        ) };
-    like( $@, qr/\QAttribute (source_columns) does not pass the type constraint\E.+ArrayOfColumns/,
+    like( $@, qr/\QAttribute (source_columns) does not pass the type constraint\E.+ArrayRefOfColumns/,
           'error when column count for source and target differ' );
 
     eval { Fey::FK->new( source_columns => $s->table('User')->column('user_id'),
@@ -68,7 +68,7 @@ use Fey::Schema;
     is( scalar @target, 1, 'one target column' );
     is( $target[0]->name(), 'user_id', 'target column is user_id' );
 
-    is_deeply( [ sort map { $_->[0]->name(), $_->[1]->name() } $fk->column_pairs() ],
+    is_deeply( [ sort map { $_->[0]->name(), $_->[1]->name() } @{ $fk->column_pairs() } ],
                [ 'user_id', 'user_id' ],
                'column_pairs() returns expected pairs of columns' );
 
