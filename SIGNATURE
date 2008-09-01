@@ -15,52 +15,52 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 5dab9eed5e98d6dde7aa3cc5d5016e758dec4c98 .shipit
-SHA1 4c1734b6309026b9d6f84dc88ff87205d178511c Build.PL
-SHA1 ed4e514e9897a4fa0f4d8e3b99ed963d9c2313c6 Changes
+SHA1 7f0ae1758130830d782b36b7d0edb833dfef4f41 Build.PL
+SHA1 be048634df9574e69128d87239dcb3b2b4958399 Changes
 SHA1 f235ba4160673bcb7c9d58c2f09dbc7fc0efadea LICENSE
 SHA1 edd1a4df061d16d4c94923295c5c2ca36cd0bfc5 MANIFEST
-SHA1 aef21e8fd28f36d66be960b315d698019c50c83a META.yml
+SHA1 dc393cafcf430cc89e2c40e8fc8f75dfa057f85e META.yml
 SHA1 cd14ada78fb37a0d926edd86eddcdf7f939de582 Makefile.PL
 SHA1 ec2d89470c1b66c7f5b7f9600aa5b398cd5f7f0a README
-SHA1 0f54e8c9a602b0646219530d7e8e913d6f998143 lib/Fey.pm
-SHA1 66218496ef8dd8e20982a84b113db09b6a2bbbb4 lib/Fey/Column.pm
-SHA1 a085cfd810329512e04771c3df6686cb95d2eb37 lib/Fey/Column/Alias.pm
+SHA1 e5b0ade96e91e2dcf1eac2b05df6104928a2c5c7 lib/Fey.pm
+SHA1 a769f532ca98b12137c965bfe1130445bfcd92dd lib/Fey/Column.pm
+SHA1 6c807e4cc6983a866f9f3d594072352b68d8ada9 lib/Fey/Column/Alias.pm
 SHA1 71972ba39945efe036da3ccd4e6511bcb1f6dfdf lib/Fey/Exceptions.pm
-SHA1 b7918d7e04e508e164f2bd860800f33542ffab5f lib/Fey/FK.pm
+SHA1 1ac12889c6636bab06822f1158606f5aaabb4344 lib/Fey/FK.pm
 SHA1 922d5b55459f2ff981076c36d5551ac0bfde9d74 lib/Fey/FakeDBI.pm
-SHA1 14a50560967d87bc7ba4980d48ab20dd797a8896 lib/Fey/Literal.pm
-SHA1 9af70ee19fc7bcf8cb491a847b9882ad9eb5e978 lib/Fey/Literal/Function.pm
-SHA1 9e219bda28b6c5559c648c18a9ca57a73e2f615f lib/Fey/Literal/Null.pm
-SHA1 2786a4dd31620590d047af8129cdc170cf7b4039 lib/Fey/Literal/Number.pm
-SHA1 a4ba82c303107cb43ecd89cd3c32ebaa8a0fd111 lib/Fey/Literal/String.pm
-SHA1 bc6f953a3d4e96f74ceb94e2152ca8c3112ddb93 lib/Fey/Literal/Term.pm
+SHA1 fdd60cc7ed0c61a27cf0179e6b7ebf0ed399d14a lib/Fey/Literal.pm
+SHA1 163dfb3698484008ed8788e79f1484f4de0abd95 lib/Fey/Literal/Function.pm
+SHA1 cd34b1f2f65f71db4e9dba5d05e40d45436b9b98 lib/Fey/Literal/Null.pm
+SHA1 96ce2cb9461ae4c3c198004616f3457c967117b6 lib/Fey/Literal/Number.pm
+SHA1 fb30983859c80600a053adb0e0a431b5613b8903 lib/Fey/Literal/String.pm
+SHA1 85f53e3ca21623ccac582b17fdc29d5e2038e277 lib/Fey/Literal/Term.pm
 SHA1 ac80319b1598f617a88b414b3004bde6646ad747 lib/Fey/NamedObjectSet.pm
-SHA1 d59063567cb6b3277c18ce2f429ca0119af69cf2 lib/Fey/Placeholder.pm
-SHA1 9d00d4fd011e6f385b9231e3f5ce5cd6573e85da lib/Fey/Role/ColumnLike.pm
-SHA1 da362ed3c3ccaf1497697d3817a78de56ef7e7d4 lib/Fey/Role/Comparable.pm
-SHA1 07d23c68f236a70548c93e05fe8a0e44c7686740 lib/Fey/Role/Groupable.pm
-SHA1 5f3b40f439e8e460cb0caab00ef9f40db33329fe lib/Fey/Role/Joinable.pm
-SHA1 2920d637932c935af0ae188a69f439519383cab5 lib/Fey/Role/Orderable.pm
-SHA1 4084895b772df5d0913ff0084e491ddacc9dec0f lib/Fey/Role/SQL/HasBindParams.pm
-SHA1 27fbc0c429d901d4589a1dda93a0dec0251ac56e lib/Fey/Role/SQL/HasLimitClause.pm
-SHA1 d397c6dacebc2381beecabde0ccfccb15a807f80 lib/Fey/Role/SQL/HasOrderByClause.pm
-SHA1 0dbdfb4c83cdab43ef20ede26da46e7e0795d544 lib/Fey/Role/SQL/HasWhereClause.pm
-SHA1 8e81c9e26c1277c47532e10381b4b41d1eb635e4 lib/Fey/Role/Selectable.pm
+SHA1 415b35e0ca3aa191d4f9c59ab02f5f434994806f lib/Fey/Placeholder.pm
+SHA1 9d7e0c65669c9a3da67e1f0aad21e72e61ee0b26 lib/Fey/Role/ColumnLike.pm
+SHA1 1795121b3a069452a4656527c4c4d47d51426964 lib/Fey/Role/Comparable.pm
+SHA1 1ca55d76270b553cdf6d2aa1e8e438a67bf1dd30 lib/Fey/Role/Groupable.pm
+SHA1 e3864d95655acc420cd6677235aa22a80aa090a2 lib/Fey/Role/Joinable.pm
+SHA1 ed6d0757d3a4dfb874f43392f29dc33da469b11d lib/Fey/Role/Orderable.pm
+SHA1 f2b26f59bd9d68bc93abfdc2c7c021970286467b lib/Fey/Role/SQL/HasBindParams.pm
+SHA1 faf1183be9e79a880eb08cee8c106b8f1fd07d82 lib/Fey/Role/SQL/HasLimitClause.pm
+SHA1 f7c070265a5c84df263c2d2201d75344221bd2ee lib/Fey/Role/SQL/HasOrderByClause.pm
+SHA1 6936fc4b31ca70e665cf3ac29790c375701b1f6e lib/Fey/Role/SQL/HasWhereClause.pm
+SHA1 747e427cbeeae7b807f990041cdb434663630377 lib/Fey/Role/Selectable.pm
 SHA1 c0edf52ef6345dd623e1e567b12d2a5f8c2795ce lib/Fey/SQL.pm
-SHA1 f42065743634495dbf545aef5b0ca9f38840a64b lib/Fey/SQL/Delete.pm
+SHA1 8a3e4ee358f248a7a7581e13b67edf77fba82eb8 lib/Fey/SQL/Delete.pm
 SHA1 e4423bacbae8721703bcb26aad3437417dc4ee9c lib/Fey/SQL/Fragment/Join.pm
 SHA1 8f64205020f6f2ce7b784859accdb107ad7493a3 lib/Fey/SQL/Fragment/SubSelect.pm
 SHA1 ce2dea55942d80b74a2f044722292b4c2459a4fe lib/Fey/SQL/Fragment/Where/Boolean.pm
 SHA1 cc8ae3c024141b6425f656034294b45ea65bb7ad lib/Fey/SQL/Fragment/Where/Comparison.pm
 SHA1 e64052c6ad304b5b1e0635da1dda79f6622acc92 lib/Fey/SQL/Fragment/Where/SubgroupEnd.pm
 SHA1 929b284e751e8ff68ab90517aa581cdc5788e586 lib/Fey/SQL/Fragment/Where/SubgroupStart.pm
-SHA1 08a3d4e577457397b0457b3bd4520f4692faa655 lib/Fey/SQL/Insert.pm
-SHA1 7c4cad171ae7e2abecf4238c394b8badd3e90ac4 lib/Fey/SQL/Select.pm
-SHA1 9edfff2da5e8662a9b70865d3ab8f74dda919b62 lib/Fey/SQL/Update.pm
-SHA1 ede88ca4ebeda45030eefe421631d136a91e4f49 lib/Fey/SQL/Where.pm
-SHA1 054a3a256ab51524f082380ed09cae8fde297f10 lib/Fey/Schema.pm
-SHA1 ecc144827f75d222c340369f448a5c107e30f056 lib/Fey/Table.pm
-SHA1 412d55fc3e1c5aa19f8ff0082dc1fde5dee001ae lib/Fey/Table/Alias.pm
+SHA1 ee86b54f1dd74d749ddeb17998906051ef1537ed lib/Fey/SQL/Insert.pm
+SHA1 ae21a5b4f5fc6acd7a485aff60eb2ece2e5d4933 lib/Fey/SQL/Select.pm
+SHA1 8b62ce431602b43fb87b3332484ab61fc39e21c4 lib/Fey/SQL/Update.pm
+SHA1 4e88be1cdd57badb393cfebd5957953df711f4b4 lib/Fey/SQL/Where.pm
+SHA1 597ea1979175e11eddcd588ca43ca50d4230fa2d lib/Fey/Schema.pm
+SHA1 6fcc01409f965d877b0bf506023dcf2029b2b025 lib/Fey/Table.pm
+SHA1 823c64e58d00979b07321c884529fe535699eb3b lib/Fey/Table/Alias.pm
 SHA1 af586f201312207175479c896b7fab8fe0da87f5 lib/Fey/Validate.pm
 SHA1 0271a17dcb1e58c7efcc34ac53b0f920790d0b9c t/Column-guess-type.t
 SHA1 3ebc0e928957247c72097d19596ffc64fc706951 t/Column.t
@@ -97,7 +97,7 @@ SHA1 fa09e1f76e152d19f3f46fd2b13b8b6810a04666 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.6 (GNU/Linux)
 
-iD8DBQFItDdC3Or3ZzQuifMRAlKhAKDar5iNahFSTYuOLdzlbSEiLjZitgCgp9FL
-gTiAcCElE1WM+cCd5aP4bhU=
-=BGEv
+iD8DBQFIvB4J3Or3ZzQuifMRAtGDAKDk1Bmgc3dL9bPvjoYF82ujfRxvpQCg6QRq
+h5TYtjkky7XT/Y3YUu3knaQ=
+=fO9Q
 -----END PGP SIGNATURE-----
