@@ -24,6 +24,7 @@ use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
 
 with 'Fey::Role::Comparable',
+     'Fey::Role::Selectable',
      'Fey::Role::SQL::HasBindParams',
      'Fey::Role::SQL::HasWhereClause',
      'Fey::Role::SQL::HasOrderByClause',
@@ -53,6 +54,11 @@ with 'Fey::Role::Comparable',
                       map { blessed $_ ? $_ : Fey::Literal->new_from_scalar($_) }
                       @s )
         {
+            if ( $elt->isa('Fey::SQL::Select' ) )
+            {
+                $elt = Fey::SQL::Fragment::SubSelect->new($elt);
+            }
+
             $self->{select}{ $elt->id() } = $elt;
         }
 
@@ -193,7 +199,8 @@ sub _check_outer_join_arguments
         unless $_[1] =~ /^(?:left|right|full)$/i;
 
     param_error 'from() was called with invalid arguments'
-        unless $_[0]->isa('Fey::Table') && $_[2]->isa('Fey::Table');
+        unless $_[0]->can('is_joinable') && $_[0]->is_joinable()
+            && $_[2]->can('is_joinable') && $_[2]->is_joinable();
 }
 
 {

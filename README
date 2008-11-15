@@ -13,13 +13,13 @@ SYNOPSIS
       my $user  = $schema->table('User');
       my $group = $schema->table('Group')
 
-      my $select = Fey::SQL->new_insert();
+      my $select = Fey::SQL->new_select();
 
       my $func = Fey::Literal::Function->new( 'LCASE', $user->column('username') );
 
       $select->select( $user->columns( 'user_id', 'username' ) )
              ->from( $user, $group )
-             ->where( $group->group_id, 'IN', 1, 2, 3, )
+             ->where( $group->group_id, 'IN', 1, 2, 3 )
              ->and  ( $func, 'LIKE', 'smith%' );
 
       print $select->sql($dbh);
@@ -37,6 +37,9 @@ USAGE
     Loading this module does nothing. It's just here to provide docs and a
     version number for the distro.
 
+    You'll want to take a look at Fey::Schema, Fey::Table, and other modules
+    in the distro for more details.
+
 WHAT IS Fey?
     The goal of the core "Fey" distro is to provide a simple, flexible way
     of *dynamically* generating complex SQL queries in Perl. Other packages
@@ -44,8 +47,7 @@ WHAT IS Fey?
     ("Fey::ORM").
 
 GETTING STARTED
-    If you're interested in an ORM, you should probably start by looking at
-    the "Fey::ORM" distro.
+    If you're interested in an ORM, take a look at the "Fey::ORM" distro.
 
     To generate SQL with Fey, you first need to create a set of objects
     representing the tables and foreign keys in your schema. The simplest
@@ -61,11 +63,12 @@ GETTING STARTED
     Once you have a schema, you can generate SQL using Fey::SQL, or a
     DBMS-specific subclass of Fey::SQL.
 
-THE CORE FEY DISTRO
-    The emphasis in the core Fey distro is on dynamic, particularly on the
-    tables/columns/etc involved in the query, not just the bound parameters.
+THE CORE Fey DISTRO
+    The emphasis in the core Fey distro is on dynamic queries, particularly
+    on the tables/columns/etc involved in the query, not just the bound
+    parameters.
 
-    In other words, this is *not* what I mean by a dynamic query ...
+    This is *not* what I mean by a dynamic query ...
 
      SELECT user_id FROM User where username = ?
 
@@ -127,15 +130,14 @@ RATIONALE
     and so forth. I've been there, and trust me, it's madness.
 
   The Solution
-    Hopefully, "Fey-Core" provides a solution to the dynamic SQL problem. It
-    allows you to specify queries in the form of *Perl methods and data
-    structures*. It provides a set of objects to represent the parts of a
+    The core Fey modules provide a solution to the dynamic SQL problem.
+    Using Fey, you can specify queries in the form of *Perl methods and
+    objects*. Fey provides a set of objects to represent the parts of a
     schema, specifically tables, columns, and foreign keys. Using these
-    objects you can easily generate very complex queries by combining them
-    with strings and passing them to the appropriate query-generating
-    method.
+    objects along with Fey::SQL, you can easily generate very complex
+    queries.
 
-    "Fey-Core" is also intended to be the foundation for building
+    This core distro is also intended to be the foundation for building
     higher-level tools like an ORM. See "Fey::ORM" for just such a thing.
 
 HISTORY AND GOALS
@@ -187,8 +189,8 @@ HISTORY AND GOALS
         "Alzabo::Runtime::Row" and "Class::AlzaboWrapper".
 
         At the same time, query generation and the ORM are de-coupled. You
-        can use "Fey-Core" to generate queries without having to every use
-        the "Fey::ORM" ORM.
+        can use Fey::SQL to generate queries without having to every use the
+        "Fey::ORM" ORM.
 
     *   Be declarative like Moose. In particular, the "Fey::ORM" ORM is as
         declarative as possible, and aims to emulate Moose's declarative
@@ -314,14 +316,16 @@ WHY IS IT NAMED Fey?
         right, perhaps magical. Fey can also mean "appearing slightly
         crazy". This project is certainly that.
 
+    Yes, I'm a nerd, I know.
+
 AUTHOR
     Dave Rolsky, <autarch@urth.org>
 
 BUGS
-    Please report any bugs or feature requests to
-    "bug-fey-core@rt.cpan.org", or through the web interface at
-    <http://rt.cpan.org>. I will be notified, and then you'll automatically
-    be notified of progress on your bug as I make changes.
+    Please report any bugs or feature requests to "bug-fey@rt.cpan.org", or
+    through the web interface at <http://rt.cpan.org>. I will be notified,
+    and then you'll automatically be notified of progress on your bug as I
+    make changes.
 
 COPYRIGHT & LICENSE
     Copyright 2006-2008 Dave Rolsky, All Rights Reserved.

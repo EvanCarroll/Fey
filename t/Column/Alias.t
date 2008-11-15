@@ -3,7 +3,7 @@ use warnings;
 
 use lib 't/lib';
 
-use Test::More tests => 15;
+use Test::More tests => 18;
 
 use Fey::Table;
 use Fey::Column::Alias;
@@ -11,8 +11,8 @@ use Fey::Column::Alias;
 
 my $t = Fey::Table->new( name => 'Test' );
 my $c = Fey::Column->new( name => 'test_id',
-                        type => 'text',
-                      );
+                          type => 'text',
+                        );
 $t->add_column($c);
 
 {
@@ -20,6 +20,7 @@ $t->add_column($c);
     isa_ok( $alias, 'Fey::Column::Alias' );
 
     ok( $alias->is_alias(), 'is_alias is true' );
+    is( $alias->name(), 'test_id', 'name is test_id' );
     is( $alias->alias_name(), 'test_id1',
         'alias_name is test_id1' );
     is( $alias->id(), 'Test.test_id1',
@@ -51,10 +52,16 @@ $t->add_column($c);
 
 {
     my $c = Fey::Column->new( name => 'testy',
-                            type => 'text',
-                          );
+                              type => 'text',
+                            );
     my $alias = $c->alias();
     eval { $alias->id() };
     isa_ok( $@, 'Fey::Exception::ObjectState' );
 }
 
+{
+    my $alias = $c->alias('renamed');
+    is( $alias->name(), 'test_id', 'name is test_id' );
+    is( $alias->alias_name(), 'renamed',
+        'alias_name is renamed' );
+}

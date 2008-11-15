@@ -16,14 +16,14 @@ Hash: SHA1
 
 SHA1 5dab9eed5e98d6dde7aa3cc5d5016e758dec4c98 .shipit
 SHA1 7f0ae1758130830d782b36b7d0edb833dfef4f41 Build.PL
-SHA1 2331a34ba402a7b7858eaf52ca10ff494eafe2c2 Changes
+SHA1 6618997cf07debb04b252d14932e6b726ae5ac0d Changes
 SHA1 f235ba4160673bcb7c9d58c2f09dbc7fc0efadea LICENSE
 SHA1 edd1a4df061d16d4c94923295c5c2ca36cd0bfc5 MANIFEST
-SHA1 63c3db14d19451628b78e76c54281d0f4e6e40c6 META.yml
+SHA1 1383ad9bfd559b07bf077558d4c7d1768d7e60a1 META.yml
 SHA1 6f92f99db464ab415b16ffb13b2fbc67c69cab56 Makefile.PL
-SHA1 ec2d89470c1b66c7f5b7f9600aa5b398cd5f7f0a README
-SHA1 c0e4a8b3e4280a37edb8c48e71c3cecfb31002a5 lib/Fey.pm
-SHA1 a769f532ca98b12137c965bfe1130445bfcd92dd lib/Fey/Column.pm
+SHA1 c96740d93b147e4043b4075f76713db2ea380149 README
+SHA1 64e832d55d7c5559a72dcb6fd0cae9377ba45ced lib/Fey.pm
+SHA1 033980c4f46725a9e51db953030694967df52f3e lib/Fey/Column.pm
 SHA1 6c807e4cc6983a866f9f3d594072352b68d8ada9 lib/Fey/Column/Alias.pm
 SHA1 71972ba39945efe036da3ccd4e6511bcb1f6dfdf lib/Fey/Exceptions.pm
 SHA1 6a4f379f3b33b03a1525ae011839c7b3cbf0a14f lib/Fey/FK.pm
@@ -55,16 +55,16 @@ SHA1 cc8ae3c024141b6425f656034294b45ea65bb7ad lib/Fey/SQL/Fragment/Where/Compari
 SHA1 e64052c6ad304b5b1e0635da1dda79f6622acc92 lib/Fey/SQL/Fragment/Where/SubgroupEnd.pm
 SHA1 929b284e751e8ff68ab90517aa581cdc5788e586 lib/Fey/SQL/Fragment/Where/SubgroupStart.pm
 SHA1 ee86b54f1dd74d749ddeb17998906051ef1537ed lib/Fey/SQL/Insert.pm
-SHA1 c789527a3367c6917f5b1ed0bfdc61219a889b4c lib/Fey/SQL/Select.pm
+SHA1 95eb2fe3d7dbcd4bf659691c211ec6a05f83dfb7 lib/Fey/SQL/Select.pm
 SHA1 8b62ce431602b43fb87b3332484ab61fc39e21c4 lib/Fey/SQL/Update.pm
 SHA1 4e88be1cdd57badb393cfebd5957953df711f4b4 lib/Fey/SQL/Where.pm
 SHA1 17cd1db24daa2f1c48153e1d62a9f104eb210492 lib/Fey/Schema.pm
-SHA1 6fcc01409f965d877b0bf506023dcf2029b2b025 lib/Fey/Table.pm
+SHA1 5209fb29a063e6fceef13bb8a08063acb6003bb2 lib/Fey/Table.pm
 SHA1 823c64e58d00979b07321c884529fe535699eb3b lib/Fey/Table/Alias.pm
 SHA1 6e65b67c9e043cd396de295875d48857f315108b lib/Fey/Validate.pm
 SHA1 0271a17dcb1e58c7efcc34ac53b0f920790d0b9c t/Column-guess-type.t
 SHA1 3ebc0e928957247c72097d19596ffc64fc706951 t/Column.t
-SHA1 da8937e46f6e7387456921d103f894124c95f9ce t/Column/Alias.t
+SHA1 ebfaf424eeb14ee5bad3b0ce175f9e321bf074b0 t/Column/Alias.t
 SHA1 f75acaf90d8c7857569a69873b445357b95158a8 t/Exceptions.t
 SHA1 01ac67ebbddee3c06ae7a23723588ce1b88a430d t/FK.t
 SHA1 a628dafb1586719078166acdf0f46e8c690c21bc t/FakeDBI.t
@@ -80,16 +80,16 @@ SHA1 0c98700c4cecb3629d1d868af9f0568648088f25 t/SQL/Delete.t
 SHA1 dd61da7ff95dbc7fa8aef48fbe8fa9b73e9308ab t/SQL/Insert-bind-params.t
 SHA1 205b332a52edfe310435cc6110d2264388620c67 t/SQL/Insert.t
 SHA1 97968afe39b17762fbdc8271c2572c492423e265 t/SQL/Select-bind-params.t
-SHA1 bb9a0ed30138135022d098673d7bb3d2ef2c2959 t/SQL/Select-from-clause.t
+SHA1 af5e0fb6680d6e83e7202c4f2cbba0105b09ef0a t/SQL/Select-from-clause.t
 SHA1 30f28f32a3632fee923fcea7572f6047741cb5de t/SQL/Select-group-by-clause.t
 SHA1 22d2565c4b7dcbc7007fe634fb6cc1e93985b1aa t/SQL/Select-having-clause.t
-SHA1 b28d0d5065fcc34909aedd5ceb59678765a6c1ae t/SQL/Select-select-clause.t
+SHA1 ceb56b92ce80d9505fc6ff1da6c54bc537fbe158 t/SQL/Select-select-clause.t
 SHA1 8e2d0b7e876a2ca230bfe036bdddfc6f5d15a482 t/SQL/Update-bind-params.t
 SHA1 a5ba454697e8cb9c869b331500843608ece798f2 t/SQL/Update.t
 SHA1 8ecdfeba28851c7c49685230da7ffd85757a10d0 t/Schema-memory-cycle.t
 SHA1 880d96a527d5561c099d42bf818cdb9046d54c2a t/Schema.t
-SHA1 4c83116ef5c5479f5600a2199f273889a217ff08 t/Table.t
-SHA1 7baeca9884c70c31b58c68c5bfd81d05e7c314fc t/Table/Alias.t
+SHA1 856a2ffbb4caa4066e91e1784ec66c3adb5927fc t/Table.t
+SHA1 6f13ab3f84a3453ccd2d0f0565949b3763c7a97d t/Table/Alias.t
 SHA1 930ee15ca163d6532c2273c6fb45e0ea8b199f4d t/Validate.t
 SHA1 9ade2293d6e5ea77d94532132c89cd205ea85ed7 t/kwalitee.t
 SHA1 f02fd9ed58df35c16f914cea063502efdcb55a6c t/pod-coverage.t
@@ -97,7 +97,7 @@ SHA1 fa09e1f76e152d19f3f46fd2b13b8b6810a04666 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (GNU/Linux)
 
-iEYEARECAAYFAkkHy/oACgkQ3Or3ZzQuifP4NQCfbm9GUJpzm6Ksl7e//JjDB0R/
-Bv4AnjcsBqkpaPEpywgvfF4S3zFfeu5r
-=C/cN
+iEYEARECAAYFAkkeE20ACgkQ3Or3ZzQuifOXVACgj8fwCoimJA+Mvraq+wrFDkqg
+NpIAoOuARlvC1zOOlxyE4CSdIr06UFZR
+=obzo
 -----END PGP SIGNATURE-----
