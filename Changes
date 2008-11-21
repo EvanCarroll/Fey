@@ -1,3 +1,15 @@
+0.17    2008-11-21
+
+- Fey::SQL::Select->group_by() was not returning $self, so it could be
+  in the middle of a chain. Reported by Aristotle Pagaltzis. RT
+  #41062.
+
+- Made (almost) all the methods that generate portions of a query
+  public, for example, $select->select_clause(), ->where_clause(),
+  etc. See the various Fey::SQL::* docs for details. Requested by
+  Dieter Pearcey.
+
+
 0.16    2008-11-14
 
 - Fey::SQL::Select did not allow outer joins using table
