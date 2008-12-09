@@ -43,8 +43,6 @@ sub id
 
     my @outer = $_[0]->[OUTER] ? $_[0]->[OUTER] : ();
 
-    # REVIEW - this is a bit wack - maybe where_clause() should be
-    # public.
     my @where = $_[0]->[WHERE] ? $_[0]->[WHERE]->where_clause( 'Fey::FakeDBI', 'no WHERE' ) : ();
 
     return
@@ -97,7 +95,7 @@ sub _join_one_table
     $join .= $_[2]->sql_with_alias( $_[1] );
 
     $join .= $_[0]->_on_clause( $_[1] );
-    $join .= $_[0]->where_clause( $_[1] );
+    $join .= $_[0]->_where_clause( $_[1] );
     $join .= ')';
 
     return $join;
@@ -116,7 +114,7 @@ sub _join_both_tables
     $join .= $_[0]->[TABLE2]->sql_with_alias( $_[1] );
 
     $join .= $_[0]->_on_clause( $_[1] );
-    $join .= $_[0]->where_clause( $_[1] );
+    $join .= $_[0]->_where_clause( $_[1] );
     $join .= ')';
 
     return $join;
@@ -139,7 +137,7 @@ sub _on_clause
     return $on;
 }
 
-sub where_clause
+sub _where_clause
 {
     return '' unless $_[0]->[WHERE];
 
