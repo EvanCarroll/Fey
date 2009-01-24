@@ -59,7 +59,7 @@ with 'Fey::Role::Comparable',
                 $elt = Fey::SQL::Fragment::SubSelect->new($elt);
             }
 
-            $self->{select}{ $elt->id() } = $elt;
+            push @{ $self->{select} }, $elt;
         }
 
         return $self;
@@ -140,14 +140,17 @@ sub _join
 
 sub _fk_for_join
 {
-    my $self = shift;
+    my $self   = shift;
+    my @tables = @_;
 
-    my $s  = $_[0]->schema;
-    my @fk = $s->foreign_keys_between_tables(@_);
+    my $s  = $tables[0]->schema;
+    my @fk = $s->foreign_keys_between_tables(@tables);
 
     unless ( @fk == 1 )
     {
-        param_error 'You specified a join for two tables that do not share a foreign key.'
+        my $names = join ' and ', sort map { $_->name() } @tables;
+
+        param_error "You specified a join for two tables that do not share a foreign key ($names)."
             unless @fk;
 
         param_error
@@ -258,11 +261,7 @@ sub select_clause_elements
 {
     my $self = shift;
 
-    return
-        ( map { $self->{select}{$_} }
-          sort
-          keys %{ $self->{select} }
-        );
+    return @{ $self->{select} };
 }
 
 sub select_clause

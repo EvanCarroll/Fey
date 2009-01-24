@@ -16,23 +16,23 @@ Hash: SHA1
 
 SHA1 ea1fc9573957d6e537b3c5441dcf4e9f4ed6c1e6 .hg/00changelog.i
 SHA1 843c4a11660fe38ea61e6960a29d4f4796da6488 .hg/branch
-SHA1 3136de9aa31f47503005981d1df03c48d7e7f954 .hg/branch.cache
-SHA1 bbe828e07b097910d5881ca95f4df7978a9dc071 .hg/dirstate
+SHA1 5b78cf1e0448fcca9af5b618f06430d5ed2f172b .hg/branch.cache
+SHA1 19590eafe1f4e477655677c95e256bfa924be3e9 .hg/dirstate
 SHA1 7ad4838da1a0b0921e4c755e08c5cf3bf5e812ac .hg/hgrc
 SHA1 eadab13cc81bdba7af447a93830bbfe517534c0d .hg/requires
-SHA1 e4e2446ca584bbfd214322ab5dca9ed4fa70f94e .hg/store/00changelog.i
-SHA1 9d47e169048e1049cb1e3a001835f965be6b42e8 .hg/store/00manifest.i
+SHA1 3ab86c17eb283991b53e71b8e15f2b3c9a1c4373 .hg/store/00changelog.i
+SHA1 ef79501882f272bed174f8ce81eaeee5acc7d700 .hg/store/00manifest.i
 SHA1 87524b51f8912d0511c98c6399b57526901e4c17 .hg/store/data/.cvsignore.i
-SHA1 e519732e48adcfbbc53c816d6a7736d7eedcdd2d .hg/store/data/.hgtags.i
+SHA1 085962817389e80017c89f119602e77011ba6fba .hg/store/data/.hgtags.i
 SHA1 eae0f391aec7eb6c22f8875074fb2f20499e9575 .hg/store/data/.shipit.i
-SHA1 e9fb9cf904db61c24b2757405f960fabd2456fbe .hg/store/data/_changes.i
+SHA1 ceb22254845cb3560a388ea06dfe87cfcc314845 .hg/store/data/_changes.i
 SHA1 df3a2a8d9cd7ed37166494c20bcd47c7574efd5f .hg/store/data/_g_o_a_l_s.i
 SHA1 0e8b0a49d17cf7a3d5b31cf986d184e49637eb1e .hg/store/data/_l_i_c_e_n_s_e.i
-SHA1 8791ee87d406341ba240a9a576c34fc34bb59442 .hg/store/data/_m_a_n_i_f_e_s_t._s_k_i_p.i
+SHA1 84cd17ddf4fd61c1b5c00d7594992abd804a52d0 .hg/store/data/_m_a_n_i_f_e_s_t._s_k_i_p.i
 SHA1 39361c6b1be7b05ab3c084d6292c5fbedf44801d .hg/store/data/_m_a_n_i_f_e_s_t.i
 SHA1 87524b51f8912d0511c98c6399b57526901e4c17 .hg/store/data/_r_e_a_d_m_e.i
 SHA1 4a952e9010e6d67c9cf462685fd1cab68301721a .hg/store/data/dev/run-cover.i
-SHA1 f271e698a38a8695a582fc4942edb5f191c3ca7f .hg/store/data/lib/_fey.pm.i
+SHA1 035bcdeebc153668e3a2f91ee5d66db935d51252 .hg/store/data/lib/_fey.pm.i
 SHA1 3554fc4a9de132b489dad83d32851e3495c5c739 .hg/store/data/lib/_fey/_accessor.pm.i
 SHA1 78a3f9c710a205ada81840b73488184d46bc5e6a .hg/store/data/lib/_fey/_column.pm.i
 SHA1 16f98982ba5ffc5e2525f0f4f88ff109835bf649 .hg/store/data/lib/_fey/_column/_alias.pm.i
@@ -83,10 +83,10 @@ SHA1 ccfa0241cfa9123255d7581288b6e11ee0a46142 .hg/store/data/lib/_fey/_s_q_l/_fr
 SHA1 126e6eeba5d77782b74f9e48cc1db0d90ffe3329 .hg/store/data/lib/_fey/_s_q_l/_fragment/_where/_subgroup_end.pm.i
 SHA1 3bd9d10bbb547d886f3b93db534a076fef8ab37b .hg/store/data/lib/_fey/_s_q_l/_fragment/_where/_subgroup_start.pm.i
 SHA1 582a168897f6615414f4615f563f8bd1fbdd1544 .hg/store/data/lib/_fey/_s_q_l/_insert.pm.i
-SHA1 71790a7587dd50541d2083c92366da400f271a35 .hg/store/data/lib/_fey/_s_q_l/_select.pm.i
+SHA1 c941103aa2510844ebe1d4eb94ff14683a429c24 .hg/store/data/lib/_fey/_s_q_l/_select.pm.i
 SHA1 6a503a12d5b388eb54b24693098652113143a5dc .hg/store/data/lib/_fey/_s_q_l/_update.pm.i
 SHA1 39ad593fb180b52d516d52acd1ee3268a35434e9 .hg/store/data/lib/_fey/_s_q_l/_where.pm.i
-SHA1 2c3e21de7337d2b7e0bfe5b7ac9897649cb750e7 .hg/store/data/lib/_fey/_schema.pm.i
+SHA1 ef53e38bc3495e983f02fc84d674fe5a88907416 .hg/store/data/lib/_fey/_schema.pm.i
 SHA1 d3859847966d84ba10f9c24246bdd68deb78439c .hg/store/data/lib/_fey/_table.pm.i
 SHA1 7cf0edb2e0ae973f449afb1bb85f6fc490bd5ee9 .hg/store/data/lib/_fey/_table/_alias.pm.i
 SHA1 df52afc6e9241cdd9de6efd08ec4120b1ee6d229 .hg/store/data/lib/_fey/_test.pm.i
@@ -197,7 +197,7 @@ SHA1 10880fcedfe69d40fcd3e415ec71910ad2adccb8 .hg/store/data/t/_s_q_l/_select-bi
 SHA1 a1e79c7f6906f3661b9e2437533e9aa4214464b7 .hg/store/data/t/_s_q_l/_select-from-clause.t.i
 SHA1 f629238524975f415c4ccc74ff04bbf91a66bac8 .hg/store/data/t/_s_q_l/_select-group-by-clause.t.i
 SHA1 128604a7507b70e77a45a838ca123d0f15f23569 .hg/store/data/t/_s_q_l/_select-having-clause.t.i
-SHA1 02c06e54db0a8d70d818687eef11e0a7d49b1461 .hg/store/data/t/_s_q_l/_select-select-clause.t.i
+SHA1 6f8d086be6aadc81489fc34ff3c57adb99db820d .hg/store/data/t/_s_q_l/_select-select-clause.t.i
 SHA1 5345388cbf8ff51a10697e6733538ff68b09704e .hg/store/data/t/_s_q_l/_update-bind-params.t.i
 SHA1 c689728d6bc20215ff95b04ecc233e95070fea7f .hg/store/data/t/_s_q_l/_update.t.i
 SHA1 e9681711c848cd546c7d835de3dfa99534fe75d0 .hg/store/data/t/_schema-memory-cycle.t.i
@@ -205,7 +205,7 @@ SHA1 c3f261724bae3adf700170c89d42322f5eb1dc9c .hg/store/data/t/_schema.t.i
 SHA1 f356c14dd4a22e7fe7c61974282523ac16feb792 .hg/store/data/t/_table.t.i
 SHA1 5a61e9046201aa63be03dcd5936020558d453025 .hg/store/data/t/_table/_alias.t.i
 SHA1 6dd4536bf9d1e4ab556385e166809bbf5dcc9f38 .hg/store/data/t/_validate.t.i
-SHA1 87c94d4dab9fda14df7b0ca97f313bd2e8b20a1c .hg/store/data/t/kwalitee.t.i
+SHA1 97fb56b85a1b776e710594b27b76d35e092e1bd8 .hg/store/data/t/kwalitee.t.i
 SHA1 944c5e284d105d7e86fe1722d8c4bb04649a6862 .hg/store/data/t/lib/_q/_test.pm.i
 SHA1 203d59c099a0cec6bfaf4f94b971521e4b4f37a8 .hg/store/data/t/lib/_q/_test/_loader.pm.i
 SHA1 efd67c0b9ad4e969ed0a32f5e75d5b181ebe1cab .hg/store/data/t/lib/_q/_test/_my_s_q_l.pm.i
@@ -215,19 +215,19 @@ SHA1 36c154913b71df3b4fcd4d7f099916bbe7e3094f .hg/store/data/t/lib/_q/_test/mysq
 SHA1 1e4901312e70998f767515688fe227ed155fbbfe .hg/store/data/t/perlcritic.t.i
 SHA1 73958b1cbed7dbfb9354aabf3a6b7adf3dd7b244 .hg/store/data/t/pod-coverage.t.i
 SHA1 388d99c57521d1b530ad71e882b71d0e228a7d85 .hg/store/data/t/pod.t.i
-SHA1 a14edbb778919e75e14419983673601ac11cb1df .hg/store/undo
+SHA1 cdc83066336dbc5499bdd57166d2214fbc43318b .hg/store/undo
 SHA1 7505d64a54e061b7acd54ccd58b49dc43500b635 .hg/undo.branch
-SHA1 62a0309e83e6b1590324c69032b699a220702c84 .hg/undo.dirstate
-SHA1 7ca3e1325e94ff4c6dc75272f9de0c26627772bc .hgtags
+SHA1 dce6e0aac173eafe5c63e86255f44dea41a628bd .hg/undo.dirstate
+SHA1 956dfd16cd12f5c94d5ce71b77868fd1754a85a4 .hgtags
 SHA1 8f8f79a96d016ef5798cbf073cdad0a0cfe0befb .shipit
-SHA1 7f0ae1758130830d782b36b7d0edb833dfef4f41 Build.PL
-SHA1 b3b2859cfe0798459d2101d3b6a73a9fe57a904c Changes
+SHA1 087bf0af6965038c65cc5df3de3fc9c36411d9cf Build.PL
+SHA1 9ce187c12220d0783aefdaf6d0d6f9cf2217a6f9 Changes
 SHA1 f235ba4160673bcb7c9d58c2f09dbc7fc0efadea LICENSE
 SHA1 e1ba09f9de1dc9f14cdf7c428a4c8f3bf214c4dd MANIFEST
-SHA1 d62fd290250bd484caa9cc5df538395d0ca6f665 META.yml
-SHA1 6f92f99db464ab415b16ffb13b2fbc67c69cab56 Makefile.PL
-SHA1 c96740d93b147e4043b4075f76713db2ea380149 README
-SHA1 720c1e14ef2d66da257d05fe2d7ee7d0cc590b5c lib/Fey.pm
+SHA1 377c379cc124faebcdcabfa94dad6380246b38ee META.yml
+SHA1 4139eb929c9a2757aa636fb728187f3018010608 Makefile.PL
+SHA1 badb517f30ace5c7c93259fa58ac4a53316b591a README
+SHA1 ce3cd93b45993e8d590f417f2c196ebd717ad549 lib/Fey.pm
 SHA1 033980c4f46725a9e51db953030694967df52f3e lib/Fey/Column.pm
 SHA1 6c807e4cc6983a866f9f3d594072352b68d8ada9 lib/Fey/Column/Alias.pm
 SHA1 71972ba39945efe036da3ccd4e6511bcb1f6dfdf lib/Fey/Exceptions.pm
@@ -260,10 +260,10 @@ SHA1 cc8ae3c024141b6425f656034294b45ea65bb7ad lib/Fey/SQL/Fragment/Where/Compari
 SHA1 e64052c6ad304b5b1e0635da1dda79f6622acc92 lib/Fey/SQL/Fragment/Where/SubgroupEnd.pm
 SHA1 929b284e751e8ff68ab90517aa581cdc5788e586 lib/Fey/SQL/Fragment/Where/SubgroupStart.pm
 SHA1 602b0f8ed70ca2a04d57658f0a1b231a2801dbce lib/Fey/SQL/Insert.pm
-SHA1 d584fa69b142a40ff206dc71eb7372ea72ef6701 lib/Fey/SQL/Select.pm
+SHA1 a49b83a61ce91910839c86ad33f33f1b3b5b38a0 lib/Fey/SQL/Select.pm
 SHA1 979976f84a2d2670ea848f3b7b1a5dfc626b75c8 lib/Fey/SQL/Update.pm
 SHA1 4e88be1cdd57badb393cfebd5957953df711f4b4 lib/Fey/SQL/Where.pm
-SHA1 17cd1db24daa2f1c48153e1d62a9f104eb210492 lib/Fey/Schema.pm
+SHA1 b095cf6182347c5c011b89764ae07ab64bcad685 lib/Fey/Schema.pm
 SHA1 5209fb29a063e6fceef13bb8a08063acb6003bb2 lib/Fey/Table.pm
 SHA1 823c64e58d00979b07321c884529fe535699eb3b lib/Fey/Table/Alias.pm
 SHA1 6e65b67c9e043cd396de295875d48857f315108b lib/Fey/Validate.pm
@@ -288,7 +288,7 @@ SHA1 bd095377810ce74fb5565cee2a0b6c72664ad2e7 t/SQL/Select-bind-params.t
 SHA1 350a2ad0a0db39654ba193b462cb7f953a285698 t/SQL/Select-from-clause.t
 SHA1 c4c0868c64d40dd613871a15d7c16beb4aecdaa0 t/SQL/Select-group-by-clause.t
 SHA1 1ef1b1a8c8625d932225c7550e2526b5462d71de t/SQL/Select-having-clause.t
-SHA1 a89788320359774060302700d46e1e0e0986388e t/SQL/Select-select-clause.t
+SHA1 023204f8ef656294a49fbdf458173b59345d262b t/SQL/Select-select-clause.t
 SHA1 4dd41dc2a0132db1a7c021b19d669cda2efe5ee5 t/SQL/Update-bind-params.t
 SHA1 4df01f1a0203354b0996e259e4bda82a82eba421 t/SQL/Update.t
 SHA1 8ecdfeba28851c7c49685230da7ffd85757a10d0 t/Schema-memory-cycle.t
@@ -296,13 +296,13 @@ SHA1 880d96a527d5561c099d42bf818cdb9046d54c2a t/Schema.t
 SHA1 856a2ffbb4caa4066e91e1784ec66c3adb5927fc t/Table.t
 SHA1 6f13ab3f84a3453ccd2d0f0565949b3763c7a97d t/Table/Alias.t
 SHA1 930ee15ca163d6532c2273c6fb45e0ea8b199f4d t/Validate.t
-SHA1 9ade2293d6e5ea77d94532132c89cd205ea85ed7 t/kwalitee.t
+SHA1 0e555408316a444690f2bfd3c7e83b38d28283cf t/kwalitee.t
 SHA1 72f0b7c997da601f53108ff703bb602017a726a5 t/pod-coverage.t
 SHA1 32c8a04283f9726be79b6fab7bf7e5584494a598 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (GNU/Linux)
 
-iEYEARECAAYFAkk+wXcACgkQ3Or3ZzQuifPP+wCbBdYiRNRpKeN6BZdSdlOU4Cyv
-cjoAoIyk1a7nlKZjXYcCZGCInlzGFV+u
-=BDK3
+iEYEARECAAYFAkl6XckACgkQ3Or3ZzQuifPgUACeLS4hjdCmuLKElP+ANsySu0NI
+8QsAoO/XZIhepJtAVWAXNdV7NADlPvtK
+=SMP2
 -----END PGP SIGNATURE-----
