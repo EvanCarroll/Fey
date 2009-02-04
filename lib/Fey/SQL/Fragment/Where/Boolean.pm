@@ -3,26 +3,24 @@ package Fey::SQL::Fragment::Where::Boolean;
 use strict;
 use warnings;
 
-use Fey::Validate
-    qw( validate_pos SCALAR_TYPE );
+use Fey::Types;
 
+use Moose;
 
-{
-    my $spec = ( SCALAR_TYPE( regex => qr/^(?:and|or)$/i ) );
-    sub new
-    {
-        my $class = shift;
-        my ($op)  = validate_pos( @_, $spec );
-
-        return bless \$op, $class;
-    }
-}
+has 'comparison' =>
+    ( is       => 'ro',
+      isa      => 'Fey.Type.WhereBoolean',
+      required => 1,
+    );
 
 sub sql
 {
-    return uc ${ $_[0] };
+    return $_[0]->comparison();
 }
 
+no Moose;
+
+__PACKAGE__->meta()->make_immutable();
 
 1;
 
@@ -49,7 +47,7 @@ See L<Fey> for details on how to report bugs.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2008 Dave Rolsky, All Rights Reserved.
+Copyright 2006-2009 Dave Rolsky, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

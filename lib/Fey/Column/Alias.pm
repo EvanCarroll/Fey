@@ -3,11 +3,11 @@ package Fey::Column::Alias;
 use strict;
 use warnings;
 
-use Fey::Exceptions qw( object_state_error );
-
 use Fey::Column;
+use Fey::Exceptions qw( object_state_error );
 use Fey::Table;
 use Fey::Table::Alias;
+use Fey::Types;
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;
@@ -34,6 +34,8 @@ has 'alias_name' =>
       isa        => 'Str',
       lazy_build => 1,
     );
+
+with 'Fey::Role::Named';
 
 
 {
@@ -172,7 +174,8 @@ exception if the alias does not belong to a table.
 
 =head1 ROLES
 
-This class does the C<Fey::Role::ColumnLike> role.
+This class does the L<Fey::Role::ColumnLike> and L<Fey::Role::Named>
+roles.
 
 =head1 AUTHOR
 
@@ -184,7 +187,7 @@ See L<Fey> for details on how to report bugs.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2008 Dave Rolsky, All Rights Reserved.
+Copyright 2006-2009 Dave Rolsky, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

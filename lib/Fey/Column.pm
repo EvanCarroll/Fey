@@ -5,23 +5,16 @@ use warnings;
 
 use Scalar::Util qw( blessed weaken );
 
-use Fey::Exceptions qw( param_error object_state_error );
-use Fey::Validate
-    qw( validate validate_pos
-        SCALAR UNDEF OBJECT
-        SCALAR_TYPE BOOLEAN_TYPE
-        POS_INTEGER_TYPE POS_OR_ZERO_INTEGER_TYPE
-        TABLE_TYPE );
-
 use Fey::Column::Alias;
+use Fey::Exceptions qw( param_error object_state_error );
 use Fey::Literal;
 use Fey::Table;
 use Fey::Table::Alias;
+use Fey::Types;
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use Moose::Util::TypeConstraints qw( subtype as where coerce from via class_type find_type_constraint );
 
 with 'Fey::Role::ColumnLike';
 
@@ -38,9 +31,6 @@ has 'name' =>
       required => 1,
     );
 
-subtype 'Fey.Type.GenericTypeName'
-    => as 'Str'
-    => where { /^(?:text|blob|integer|float|date|datetime|time|boolean|other)$/xism };
 has 'generic_type' =>
     ( is         => 'ro',
       isa        => 'Fey.Type.GenericTypeName',
@@ -53,18 +43,12 @@ has type =>
       required => 1,
     );
 
-subtype 'Fey.Type.PosInteger'
-    => as 'Int'
-    => where { $_ > 0 };
 has length =>
     ( is       => 'ro',
       isa      => 'Fey.Type.PosInteger',
       required => 0
     );
 
-subtype 'Fey.Type.PosOrZeroInteger'
-    => as 'Int'
-    => where { $_ >= 0 };
 # How to say that precision requires length as well?
 has precision =>
     ( is       => 'ro',
@@ -84,39 +68,25 @@ has is_nullable =>
       default => 0,
     );
 
-subtype 'Fey.Type.DefaultValue'
-    => as 'Fey::Literal';
-coerce 'Fey.Type.DefaultValue'
-    => from 'Undef'
-    => via { Fey::Literal::Null->new() }
-    => from 'Value'
-    => via { Fey::Literal->new_from_scalar($_) };
-
 has default =>
     ( is     => 'ro',
       isa    => 'Fey.Type.DefaultValue',
       coerce => 1,
     );
 
-{
-    for my $class ( qw( Fey::Table Fey::Table::Alias ) )
-    {
-        class_type($class)
-            unless find_type_constraint($class);
-    }
-
-    has 'table' =>
-        ( is       => 'rw',
-          isa      =>  'Fey::Table | Fey::Table::Alias',
-          weak_ref => 1,
-          writer   => '_set_table',
-          clearer  => '_clear_table',
-        );
-}
+has 'table' =>
+    ( is        => 'rw',
+      does      =>  'Fey::Role::TableLike',
+      weak_ref  => 1,
+      predicate => 'has_table',
+      writer    => '_set_table',
+      clearer   => '_clear_table',
+    );
 
 after '_set_table', '_clear_table' =>
     sub { $_[0]->_clear_id() };
 
+with 'Fey::Role::Named';
 
 
 {
@@ -352,7 +322,8 @@ Returns a unique identifier for the column.
 
 =head1 ROLES
 
-This class does the C<Fey::Role::ColumnLike> role.
+This class does the L<Fey::Role::ColumnLike> and L<Fey::Role::Named>
+roles.
 
 =head1 AUTHOR
 
@@ -364,7 +335,7 @@ See L<Fey> for details on how to report bugs.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2008 Dave Rolsky, All Rights Reserved.
+Copyright 2006-2009 Dave Rolsky, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

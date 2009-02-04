@@ -3,31 +3,37 @@ package Fey::NamedObjectSet;
 use strict;
 use warnings;
 
-use List::MoreUtils qw( all pairwise );
+use List::AllUtils qw( all pairwise );
 
-use Fey::Validate
-    qw( validate_pos SCALAR_TYPE NAMED_OBJECT_TYPE );
+use Fey::Types;
 
+use Moose;
+use MooseX::AttributeHelpers;
 
-sub new
+has '_set' =>
+    ( metaclass => 'Collection::Hash',
+      is        => 'ro',
+      isa       => 'HashRef[Fey::Role::Named]',
+      provides  => { set    => '_add',
+                     delete => '_delete',
+                     get    => '_get',
+                     values => '_all',
+                   },
+      required  => 1,
+    );
+
+sub BUILDARGS
 {
     my $class = shift;
 
-    my $self = bless {}, $class;
-
-    $self->add(@_) if @_;
-
-    return $self;
+    return { _set => { map { $_->name() => $_ } @_ } };
 }
 
 sub add
 {
-    my $self    = shift;
+    my $self = shift;
 
-    my $count = @_ ? @_ : 1;
-    validate_pos( @_, ( NAMED_OBJECT_TYPE ) x $count );
-
-    $self->{ $_->name() } = $_ for @_;
+    $self->_add( map { $_->name() => $_ } @_ );
 
     return;
 }
@@ -36,29 +42,25 @@ sub delete
 {
     my $self = shift;
 
-    my $count = @_ ? @_ : 1;
-    validate_pos( @_, ( NAMED_OBJECT_TYPE ) x $count );
-
-    delete $self->{ $_->name() } for @_;
+    $self->_delete( map { $_->name() } @_ );
 
     return;
 }
 
 sub object
 {
-    my $self   = shift;
-    my ($name) = validate_pos( @_, SCALAR_TYPE );
+    my $self = shift;
 
-    return $self->{$name};
+    return $self->_get(shift);
 }
 
 sub objects
 {
     my $self = shift;
 
-    validate_pos( @_, ( SCALAR_TYPE ) x @_ );
+    return $self->_all() unless @_;
 
-    return @_ ? @{ $self }{ grep { exists $self->{$_} } @_ } : values %{ $self };
+    return grep { defined } $self->_get(@_);
 }
 
 sub is_same_as
@@ -66,13 +68,17 @@ sub is_same_as
     my $self  = shift;
     my $other = shift;
 
-    my @self_names  = sort keys %{ $self };
-    my @other_names = sort keys %{ $other };
+    my @self_names  = sort keys %{ $self->_set() };
+    my @other_names = sort keys %{ $other->_set() };
 
     return 0 unless @self_names == @other_names;
 
     return all { $_ } pairwise { $a eq $b } @self_names, @other_names;
 }
+
+no Moose;
+
+__PACKAGE__->meta()->make_immutable();
 
 1;
 
@@ -138,7 +144,7 @@ See L<Fey> for details on how to report bugs.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2008 Dave Rolsky, All Rights Reserved.
+Copyright 2006-2009 Dave Rolsky, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

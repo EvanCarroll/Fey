@@ -4,19 +4,16 @@ use strict;
 use warnings;
 
 use Fey::Exceptions qw(param_error);
-use Fey::Validate
-    qw( validate validate_pos
-        SCALAR_TYPE
-        TABLE_TYPE );
-
 use Fey::Table;
+use Fey::Types;
 
 use Moose;
+use MooseX::AttributeHelpers;
+use MooseX::Params::Validate qw( pos_validated_list );
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
 
-with 'Fey::Role::Joinable';
-
+with 'Fey::Role::TableLike';
 
 has 'id' =>
     ( is         => 'ro',
@@ -36,6 +33,20 @@ has 'alias_name' =>
       lazy_build => 1,
     );
 
+has '_columns' =>
+    ( metaclass => 'Collection::Hash',
+      is        => 'ro',
+      isa       => 'HashRef[Fey::Column]',
+      default   => sub { {} },
+      provides  => { 'get'    => '_get_column',
+                     'set'    => '_set_column',
+                     'exists' => '_has_column',
+                   },
+      init_arg  => undef,
+    );
+
+with 'Fey::Role::Named';
+
 
 {
     my %Numbers;
@@ -50,24 +61,23 @@ has 'alias_name' =>
     }
 }
 
+sub column
 {
-    my $spec = (SCALAR_TYPE);
-    sub column
-    {
-        my $self = shift;
-        my ($name) = validate_pos( @_, $spec );
+    my $self = shift;
+    my ($name) = pos_validated_list( \@_, { isa => 'Str' } );
 
-        return $self->{columns}{$name}
-            if $self->{columns}{$name};
+    return $self->_get_column($name)
+        if $self->_has_column($name);
 
-        my $col = $self->table()->column($name)
-            or return;
+    my $col = $self->table()->column($name)
+        or return;
 
-        my $clone = $col->_clone();
-        $clone->_set_table($self);
+    my $clone = $col->_clone();
+    $clone->_set_table($self);
 
-        return $self->{columns}{$name} = $clone;
-    }
+    $self->_set_column( $name => $clone );
+
+    return $clone;
 }
 
 sub columns
@@ -186,7 +196,8 @@ Returns a unique string identifying the alias.
 
 =head1 ROLES
 
-This class does the C<Fey::Role::Joinable> role.
+This class does the L<Fey::Role::TableLike> and L<Fey::Role::Named>
+roles.
 
 =head1 AUTHOR
 
@@ -198,7 +209,7 @@ See L<Fey> for details on how to report bugs.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2008 Dave Rolsky, All Rights Reserved.
+Copyright 2006-2009 Dave Rolsky, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

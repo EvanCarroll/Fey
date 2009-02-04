@@ -1,6 +1,6 @@
 ---
 name: Fey
-version: 0.1901
+version: 0.20
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Better SQL Generation Through Perl
@@ -13,12 +13,12 @@ resources:
 requires:
   Exception::Class: 0
   Exporter: 0
-  List::MoreUtils: 0
-  Moose: 0.56
+  List::AllUtils: 0
+  Moose: 0.66
   MooseX::AttributeHelpers: 0.13
+  MooseX::Params::Validate: 0.08
   MooseX::SemiAffordanceAccessor: 0.03
   MooseX::StrictConstructor: 0.07
-  Params::Validate: 0.82
   Scalar::Util: 0
   Task::Weaken: 0.99
 build_requires:
@@ -32,7 +32,7 @@ recommends:
 provides:
   Fey:
     file: lib/Fey.pm
-    version: 0.1901
+    version: 0.20
   Fey::Column:
     file: lib/Fey/Column.pm
   Fey::Column::Alias:
@@ -67,6 +67,8 @@ provides:
     file: lib/Fey/Role/Groupable.pm
   Fey::Role::Joinable:
     file: lib/Fey/Role/Joinable.pm
+  Fey::Role::Named:
+    file: lib/Fey/Role/Named.pm
   Fey::Role::Orderable:
     file: lib/Fey/Role/Orderable.pm
   Fey::Role::SQL::HasBindParams:
@@ -79,6 +81,8 @@ provides:
     file: lib/Fey/Role/SQL/HasWhereClause.pm
   Fey::Role::Selectable:
     file: lib/Fey/Role/Selectable.pm
+  Fey::Role::TableLike:
+    file: lib/Fey/Role/TableLike.pm
   Fey::SQL:
     file: lib/Fey/SQL.pm
   Fey::SQL::Delete:
@@ -109,8 +113,8 @@ provides:
     file: lib/Fey/Table.pm
   Fey::Table::Alias:
     file: lib/Fey/Table/Alias.pm
-  Fey::Validate:
-    file: lib/Fey/Validate.pm
+  Fey::Types:
+    file: lib/Fey/Types.pm
 generated_by: Module::Build version 0.31012
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

@@ -1,12 +1,11 @@
-package Fey::Role::Joinable;
+package Fey::Role::Named;
 
 use strict;
 use warnings;
 
 use Moose::Role;
 
-
-sub is_joinable { $_[0]->schema() ? 1 : 0 }
+requires 'name';
 
 no Moose::Role;
 
@@ -16,26 +15,18 @@ __END__
 
 =head1 NAME
 
-Fey::Role::Joinable - A role for things that can be part of a JOIN BY clause
+Fey::Role::Named - A role for things with a name
 
 =head1 SYNOPSIS
 
-  use MooseX::StrictConstructor;
+  use Moose;
 
-  with 'Fey::Role::Joinable';
+  with 'Fey::Role::Name';
 
 =head1 DESCRIPTION
 
-Classes which do this role represent an object which can be part of a
-C<FROM> clause.
-
-=head1 METHODS
-
-This role provides the following methods:
-
-=head2 $object->is_joinable()
-
-Returns true.
+This role has no methods or attributes of its own, it simply requires
+that the consuming class provide a C<name()> method.
 
 =head1 AUTHOR
 

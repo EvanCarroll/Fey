@@ -3,19 +3,14 @@ package Fey::FK;
 use strict;
 use warnings;
 
-use Fey::Exceptions qw(param_error);
-use Fey::Validate
-    qw( validate validate_pos
-        OBJECT ARRAYREF
-        COLUMN_TYPE
-        TABLE_OR_NAME_TYPE );
-
 use Fey::Column;
-use List::MoreUtils qw( uniq all pairwise );
-use List::Util qw( max );
+use Fey::Exceptions qw(param_error);
+use Fey::Types;
+use List::AllUtils qw( max uniq all pairwise );
 use Scalar::Util qw( blessed );
 
 use Moose;
+use MooseX::Params::Validate qw( pos_validated_list );
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
 use Moose::Util::TypeConstraints;
@@ -26,33 +21,19 @@ has 'id' =>
       init_arg   => undef,
     );
 
-subtype 'Fey.Type.ArrayRefOfColumns'
-    => as 'ArrayRef'
-    => where { @{ $_ } >= 1 && all { $_ && $_->isa('Fey::Column') } @{$_} };
+has [ qw( source_columns target_columns ) ] =>
+    ( is       => 'ro',
+      isa      => 'Fey.Type.ArrayRefOfColumns',
+      required => 1,
+      coerce   => 1,
+    );
 
-coerce 'Fey.Type.ArrayRefOfColumns'
-    => from 'Fey::Column'
-    => via { [ $_ ] };
-
-for my $attr ( qw( source_columns target_columns ) )
-{
-    has $attr =>
-        ( is       => 'ro',
-          isa      => 'Fey.Type.ArrayRefOfColumns',
-          required => 1,
-          coerce   => 1,
-        );
-}
-
-for my $attr ( qw( source_table target_table ) )
-{
-    has $attr =>
-        ( is         => 'ro',
-          isa        => 'Fey::Table | Fey::Table::Alias',
-          lazy_build => 1,
-          init_arg   => undef,
-        );
-}
+has [ qw( source_table target_table ) ] =>
+    ( is         => 'ro',
+      does       => 'Fey::Role::TableLike',
+      lazy_build => 1,
+      init_arg   => undef,
+    );
 
 has column_pairs =>
     ( is         => 'ro',
@@ -140,53 +121,52 @@ sub _build_target_table
     return $self->target_columns()->[0]->table();
 }
 
+sub has_tables
 {
-    my $spec = (TABLE_OR_NAME_TYPE);
-    sub has_tables
-    {
-        my $self = shift;
-        my ( $table1, $table2 ) = validate_pos( @_, $spec, $spec );
+    my $self = shift;
 
-        my $name1 = blessed $table1 ? $table1->name() : $table1;
-        my $name2 = blessed $table2 ? $table2->name() : $table2;
+    my ( $table1, $table2 ) =
+        pos_validated_list( \@_,
+                            { isa => 'Fey.Type.TableOrName' },
+                            { isa => 'Fey.Type.TableOrName' },
+                          );
 
-        my @looking_for = sort $name1, $name2;
-        my @have =
-            sort map { $_->name() } $self->source_table(), $self->target_table();
+    my $name1 = blessed $table1 ? $table1->name() : $table1;
+    my $name2 = blessed $table2 ? $table2->name() : $table2;
 
-        return (    $looking_for[0] eq $have[0]
-                 && $looking_for[1] eq $have[1] );
-   }
+    my @looking_for = sort $name1, $name2;
+    my @have =
+        sort map { $_->name() } $self->source_table(), $self->target_table();
+
+    return (    $looking_for[0] eq $have[0]
+             && $looking_for[1] eq $have[1] );
 }
 
+sub has_column
 {
-    my $spec = (COLUMN_TYPE);
-    sub has_column
+    my $self  = shift;
+    my ($col) = pos_validated_list( \@_, { isa => 'Fey::Column' } );
+
+    my $table_name = $col->table()->name();
+
+    my @cols;
+    for my $part ( qw( source target ) )
     {
-        my $self  = shift;
-        my ($col) = validate_pos( @_, $spec );
-
-        my $table_name = $col->table()->name();
-
-        my @cols;
-        for my $part ( qw( source target ) )
+        my $table_meth = $part . '_table';
+        if ( $self->$table_meth()->name() eq $table_name )
         {
-            my $table_meth = $part . '_table';
-            if ( $self->$table_meth()->name() eq $table_name )
-            {
-                my $col_meth = $part . '_columns';
-                @cols = @{ $self->$col_meth() };
-            }
+            my $col_meth = $part . '_columns';
+            @cols = @{ $self->$col_meth() };
         }
-
-        return 0 unless @cols;
-
-        my $col_name = $col->name();
-
-        return 1 if grep { $_->name() eq $col_name } @cols;
-
-        return 0;
     }
+
+    return 0 unless @cols;
+
+    my $col_name = $col->name();
+
+    return 1 if grep { $_->name() eq $col_name } @cols;
+
+    return 0;
 }
 
 sub _build_is_self_referential
@@ -329,7 +309,7 @@ See L<Fey> for details on how to report bugs.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2008 Dave Rolsky, All Rights Reserved.
+Copyright 2006-2009 Dave Rolsky, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

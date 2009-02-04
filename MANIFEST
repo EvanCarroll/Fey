@@ -18,12 +18,14 @@ lib/Fey/Role/ColumnLike.pm
 lib/Fey/Role/Comparable.pm
 lib/Fey/Role/Groupable.pm
 lib/Fey/Role/Joinable.pm
+lib/Fey/Role/Named.pm
 lib/Fey/Role/Orderable.pm
 lib/Fey/Role/Selectable.pm
 lib/Fey/Role/SQL/HasBindParams.pm
 lib/Fey/Role/SQL/HasLimitClause.pm
 lib/Fey/Role/SQL/HasOrderByClause.pm
 lib/Fey/Role/SQL/HasWhereClause.pm
+lib/Fey/Role/TableLike.pm
 lib/Fey/Schema.pm
 lib/Fey/SQL.pm
 lib/Fey/SQL/Delete.pm
@@ -39,7 +41,7 @@ lib/Fey/SQL/Update.pm
 lib/Fey/SQL/Where.pm
 lib/Fey/Table.pm
 lib/Fey/Table/Alias.pm
-lib/Fey/Validate.pm
+lib/Fey/Types.pm
 LICENSE
 Makefile.PL
 MANIFEST			This list of files
@@ -76,5 +78,4 @@ t/SQL/Update-bind-params.t
 t/SQL/Update.t
 t/Table.t
 t/Table/Alias.t
-t/Validate.t
 SIGNATURE    Added here by Module::Build
