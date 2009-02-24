@@ -4,7 +4,7 @@ use warnings;
 use lib 't/lib';
 
 use Fey::Test;
-use Test::More tests => 33;
+use Test::More tests => 37;
 
 use Fey::Literal;
 
@@ -37,6 +37,11 @@ use Fey::Literal;
     is( $string->sql_with_alias($dbh), q{'Foo'}, "string sql_with_alias is 'Foo'" );
     is( $string->sql_or_alias($dbh), q{'Foo'}, "string sql_or_alias is 'Foo'" );
     is( $string->sql($dbh), q{'Foo'}, "string sql is 'Foo'" );
+
+    $term = Fey::Literal::Term->new( $string, '::text' );
+    is( $term->sql_with_alias($dbh), q{'Foo'::text}, "complex term sql_with_alias" );
+    is( $term->sql_or_alias($dbh), q{'Foo'::text}, "complex term sql_or_alias" );
+    is( $term->sql($dbh), q{'Foo'::text}, "complex term sql" );
 
     $string = Fey::Literal::String->new("Weren't");
     is( $string->sql_or_alias($dbh),
@@ -139,3 +144,27 @@ use Fey::Literal;
         'NOW function formatted for compare when it has an alias returns alias' );
 }
 
+{
+    package Str;
+
+    use overload q{""} => sub { ${ $_[0] } };
+
+    sub new
+    {
+        my $str = $_[1];
+        return bless \$str, __PACKAGE__;
+    }
+}
+
+{
+    my $s = Fey::Test->mock_test_schema();
+    my $dbh = Fey::Test->mock_dbh();
+
+    my $term = Fey::Literal::Term->new( 'THING ',
+                                        Str->new('OTHER '),
+                                        $s->table('User')->column('user_id'),
+                                      );
+
+    is( $term->sql_or_alias($dbh), q{THING OTHER "User"."user_id"},
+        'Term does not try to call sql_or_alias on objects which do not have this method' );
+}
