@@ -4,7 +4,7 @@ use warnings;
 use lib 't/lib';
 
 use Fey::Test;
-use Test::More tests => 34;
+use Test::More tests => 35;
 
 use Fey::SQL;
 
@@ -385,3 +385,27 @@ my $dbh = Fey::Test->mock_dbh();
     like( $@, qr/\Qthe first two arguments to from() were not valid (not tables or something else joinable)/,
           'cannot pass a table without a schema to from()' );
 }
+
+{
+    my $q = Fey::SQL->new_select->from( $s->table('User') );
+
+    # The bug this exercised was that two aliases were created, but
+    # since they had the same name, we only ended up with one join
+    # fragment. Then the column from the second table alias ended up
+    # going out of scope.
+    for (0..1)
+    {
+        my $table = $s->table('UserGroup')->alias('UserGroup1');
+        $q->from( $s->table('User'), $table );
+        $q->where( $table->column('group_id'), '=', 1 );
+    };
+
+    $q->select(1);
+
+    my $sql = q{SELECT 1 FROM "User" JOIN "UserGroup" AS "UserGroup1" ON};
+    $sql .= q{ ("UserGroup1"."user_id" = "User"."user_id")};
+    $sql .= q{ WHERE "UserGroup1"."group_id" = ? AND "UserGroup1"."group_id" = ?};
+
+    is( $q->sql($dbh), $sql, 'alias shows up in join once and where twice' );
+}
+
