@@ -1,6 +1,6 @@
 ---
 name: Fey
-version: 0.23
+version: 0.24
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Better SQL Generation Through Perl
@@ -17,6 +17,7 @@ requires:
   Moose: 0.66
   MooseX::AttributeHelpers: 0.13
   MooseX::Params::Validate: 0.08
+  MooseX::Role::Parameterized: 0.04
   MooseX::SemiAffordanceAccessor: 0.03
   MooseX::StrictConstructor: 0.07
   Scalar::Util: 0
@@ -32,7 +33,7 @@ recommends:
 provides:
   Fey:
     file: lib/Fey.pm
-    version: 0.23
+    version: 0.24
   Fey::Column:
     file: lib/Fey/Column.pm
   Fey::Column::Alias:
@@ -81,12 +82,16 @@ provides:
     file: lib/Fey/Role/SQL/HasWhereClause.pm
   Fey::Role::Selectable:
     file: lib/Fey/Role/Selectable.pm
+  Fey::Role::SetOperation:
+    file: lib/Fey/Role/SetOperation.pm
   Fey::Role::TableLike:
     file: lib/Fey/Role/TableLike.pm
   Fey::SQL:
     file: lib/Fey/SQL.pm
   Fey::SQL::Delete:
     file: lib/Fey/SQL/Delete.pm
+  Fey::SQL::Except:
+    file: lib/Fey/SQL/Except.pm
   Fey::SQL::Fragment::Join:
     file: lib/Fey/SQL/Fragment/Join.pm
   Fey::SQL::Fragment::SubSelect:
@@ -101,8 +106,12 @@ provides:
     file: lib/Fey/SQL/Fragment/Where/SubgroupStart.pm
   Fey::SQL::Insert:
     file: lib/Fey/SQL/Insert.pm
+  Fey::SQL::Intersect:
+    file: lib/Fey/SQL/Intersect.pm
   Fey::SQL::Select:
     file: lib/Fey/SQL/Select.pm
+  Fey::SQL::Union:
+    file: lib/Fey/SQL/Union.pm
   Fey::SQL::Update:
     file: lib/Fey/SQL/Update.pm
   Fey::SQL::Where:

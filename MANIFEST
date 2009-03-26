@@ -21,6 +21,7 @@ lib/Fey/Role/Joinable.pm
 lib/Fey/Role/Named.pm
 lib/Fey/Role/Orderable.pm
 lib/Fey/Role/Selectable.pm
+lib/Fey/Role/SetOperation.pm
 lib/Fey/Role/SQL/HasBindParams.pm
 lib/Fey/Role/SQL/HasLimitClause.pm
 lib/Fey/Role/SQL/HasOrderByClause.pm
@@ -29,6 +30,7 @@ lib/Fey/Role/TableLike.pm
 lib/Fey/Schema.pm
 lib/Fey/SQL.pm
 lib/Fey/SQL/Delete.pm
+lib/Fey/SQL/Except.pm
 lib/Fey/SQL/Fragment/Join.pm
 lib/Fey/SQL/Fragment/SubSelect.pm
 lib/Fey/SQL/Fragment/Where/Boolean.pm
@@ -36,7 +38,9 @@ lib/Fey/SQL/Fragment/Where/Comparison.pm
 lib/Fey/SQL/Fragment/Where/SubgroupEnd.pm
 lib/Fey/SQL/Fragment/Where/SubgroupStart.pm
 lib/Fey/SQL/Insert.pm
+lib/Fey/SQL/Intersect.pm
 lib/Fey/SQL/Select.pm
+lib/Fey/SQL/Union.pm
 lib/Fey/SQL/Update.pm
 lib/Fey/SQL/Where.pm
 lib/Fey/Table.pm
@@ -74,6 +78,7 @@ t/SQL/Select-from-clause.t
 t/SQL/Select-group-by-clause.t
 t/SQL/Select-having-clause.t
 t/SQL/Select-select-clause.t
+t/SQL/Set.t
 t/SQL/Update-bind-params.t
 t/SQL/Update.t
 t/Table.t

@@ -14,6 +14,7 @@ WriteMakefile
                            'Moose' => '0.66',
                            'MooseX::AttributeHelpers' => '0.13',
                            'MooseX::Params::Validate' => '0.08',
+                           'MooseX::Role::Parameterized' => '0.04',
                            'MooseX::SemiAffordanceAccessor' => '0.03',
                            'MooseX::StrictConstructor' => '0.07',
                            'Scalar::Util' => '0',
