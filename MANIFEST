@@ -17,7 +17,9 @@ lib/Fey/Placeholder.pm
 lib/Fey/Role/ColumnLike.pm
 lib/Fey/Role/Comparable.pm
 lib/Fey/Role/Groupable.pm
+lib/Fey/Role/HasAliasName.pm
 lib/Fey/Role/Joinable.pm
+lib/Fey/Role/MakesAliasObjects.pm
 lib/Fey/Role/Named.pm
 lib/Fey/Role/Orderable.pm
 lib/Fey/Role/Selectable.pm
@@ -32,7 +34,6 @@ lib/Fey/SQL.pm
 lib/Fey/SQL/Delete.pm
 lib/Fey/SQL/Except.pm
 lib/Fey/SQL/Fragment/Join.pm
-lib/Fey/SQL/Fragment/SubSelect.pm
 lib/Fey/SQL/Fragment/Where/Boolean.pm
 lib/Fey/SQL/Fragment/Where/Comparison.pm
 lib/Fey/SQL/Fragment/Where/SubgroupEnd.pm

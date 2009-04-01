@@ -1,6 +1,6 @@
 ---
 name: Fey
-version: 0.24
+version: 0.25
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Better SQL Generation Through Perl
@@ -33,7 +33,7 @@ recommends:
 provides:
   Fey:
     file: lib/Fey.pm
-    version: 0.24
+    version: 0.25
   Fey::Column:
     file: lib/Fey/Column.pm
   Fey::Column::Alias:
@@ -66,8 +66,12 @@ provides:
     file: lib/Fey/Role/Comparable.pm
   Fey::Role::Groupable:
     file: lib/Fey/Role/Groupable.pm
+  Fey::Role::HasAliasName:
+    file: lib/Fey/Role/HasAliasName.pm
   Fey::Role::Joinable:
     file: lib/Fey/Role/Joinable.pm
+  Fey::Role::MakesAliasObjects:
+    file: lib/Fey/Role/MakesAliasObjects.pm
   Fey::Role::Named:
     file: lib/Fey/Role/Named.pm
   Fey::Role::Orderable:
@@ -94,8 +98,6 @@ provides:
     file: lib/Fey/SQL/Except.pm
   Fey::SQL::Fragment::Join:
     file: lib/Fey/SQL/Fragment/Join.pm
-  Fey::SQL::Fragment::SubSelect:
-    file: lib/Fey/SQL/Fragment/SubSelect.pm
   Fey::SQL::Fragment::Where::Boolean:
     file: lib/Fey/SQL/Fragment/Where/Boolean.pm
   Fey::SQL::Fragment::Where::Comparison:

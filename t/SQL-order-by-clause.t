@@ -4,7 +4,7 @@ use warnings;
 use lib 't/lib';
 
 use Fey::Test;
-use Test::More tests => 10;
+use Test::More tests => 12;
 
 use Fey::Literal;
 use Fey::SQL;
@@ -34,7 +34,7 @@ my $dbh = Fey::Test->mock_dbh();
 
     $q->order_by( $s->table('User')->column('user_id'), 'ASC' );
     is( $q->order_by_clause($dbh), q{ORDER BY "User"."user_id" ASC},
-        'order_by() one column' );
+        'order_by() one column explicit ASC' );
 }
 
 {
@@ -42,7 +42,23 @@ my $dbh = Fey::Test->mock_dbh();
 
     $q->order_by( $s->table('User')->column('user_id'), 'DESC' );
     is( $q->order_by_clause($dbh), q{ORDER BY "User"."user_id" DESC},
-        'order_by() one column' );
+        'order_by() one column explicit DESC' );
+}
+
+{
+    my $q = Fey::SQL->new_select()->select( $s->table('User') );
+
+    $q->order_by( $s->table('User')->column('user_id'), 'DESC NULLS FIRST' );
+    is( $q->order_by_clause($dbh), q{ORDER BY "User"."user_id" DESC NULLS FIRST},
+        'order_by() one column nulls first' );
+}
+
+{
+    my $q = Fey::SQL->new_select()->select( $s->table('User') );
+
+    $q->order_by( $s->table('User')->column('user_id'), 'DESC NULLS LAST' );
+    is( $q->order_by_clause($dbh), q{ORDER BY "User"."user_id" DESC NULLS LAST},
+        'order_by() one column nulls last' );
 }
 
 {
