@@ -15,13 +15,13 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 a2579adfbea977e712de5c14869c4a7f2aced778 Build.PL
-SHA1 67e04464e6c01a0467ecd0551558bcb08ba900c2 Changes
+SHA1 969454187cfa3ac72e7b926046f860002576af94 Changes
 SHA1 f235ba4160673bcb7c9d58c2f09dbc7fc0efadea LICENSE
 SHA1 9a206460298f7e6823f1ac60bffc218d8811de0a MANIFEST
-SHA1 8340b1e6dc3ab62f93e893edaace912a1d2f3c66 META.yml
+SHA1 0306c07fd02e9421bd6e93650bef610bf8992b7a META.yml
 SHA1 d9492a34411659bdae419b819956701d9330f738 Makefile.PL
 SHA1 a5568ebbf72dca2819f3e89c67553130811c4cfd README
-SHA1 c59cd33e38315282cbffacd3db4e18011998c4ef lib/Fey.pm
+SHA1 675e84cd9a22d368f6383b81a193e8ee78b1343e lib/Fey.pm
 SHA1 6936199d23bd349a8fea994f56aefb473f225c24 lib/Fey/Column.pm
 SHA1 2c2b7ae7c05115228000cc2dec6e460d152bbcd6 lib/Fey/Column/Alias.pm
 SHA1 65bd54562daf2afe61c765c549b106bdc947b3f8 lib/Fey/Exceptions.pm
@@ -55,7 +55,7 @@ SHA1 ac205bab3a2310ea63942aa529b1c97f1d3e8826 lib/Fey/SQL/Delete.pm
 SHA1 2df866d8dd3ac1052cb876b82494cb0a7488dfb3 lib/Fey/SQL/Except.pm
 SHA1 ff3282ea7e665fbb9a4bcb061b7d628169dcb62b lib/Fey/SQL/Fragment/Join.pm
 SHA1 cbe9b1def328868892a3a66ffcda77322258a698 lib/Fey/SQL/Fragment/Where/Boolean.pm
-SHA1 cb47f479dc9c47d70c4e866d27690cd825129a5b lib/Fey/SQL/Fragment/Where/Comparison.pm
+SHA1 f9d8974dd5591003141f541ccd58c310d047d9c8 lib/Fey/SQL/Fragment/Where/Comparison.pm
 SHA1 1db6d14a9eb9c99d4814a7655c8402a6abbd81a3 lib/Fey/SQL/Fragment/Where/SubgroupEnd.pm
 SHA1 224bda972a2c5a4647d3cb5fc824ee03c00619e6 lib/Fey/SQL/Fragment/Where/SubgroupStart.pm
 SHA1 52685884c20fc4ae5a157e032622258ba2bcd905 lib/Fey/SQL/Insert.pm
@@ -79,16 +79,16 @@ SHA1 6d15c2f6c19b58673a96f102a3b7c253fcf4a2ec t/Literal.t
 SHA1 5759a81d9ed0cfbe47157b5241c0818549405f2c t/NamedObjectSet.t
 SHA1 f011e6f429a347151b3bbc7dad9c0b9c07bf944b t/SQL-limit-clause.t
 SHA1 45e998003492a166201c1121143e94b8304aa321 t/SQL-order-by-clause.t
-SHA1 eaea3f6c5182aaf800d0223ea4ab7dd7bba871ac t/SQL-where-clause.t
+SHA1 a0f2862dec5eb3cf9312c92813f3750d0d0fad35 t/SQL-where-clause.t
 SHA1 6df708453af3ba79ebcdd0753ffec39259be50bf t/SQL.t
 SHA1 85c45c205c0f778b032a17c60e447d85becfa885 t/SQL/Delete-bind-params.t
 SHA1 443a3e8b6c734f65fde3002645bb426a77193d92 t/SQL/Delete.t
 SHA1 75abc0c1afae5aa8885bdc27f0ac99d8b251b638 t/SQL/Insert-bind-params.t
 SHA1 cb79cf9d6cb3069a0c5a48f6faac96d8fca8cf43 t/SQL/Insert.t
-SHA1 4ab8a76e7b5d91a932cde8974cff830a500dc22c t/SQL/Select-bind-params.t
+SHA1 aa11175a6e2147c8fc8e38e2efbbef3243bb6378 t/SQL/Select-bind-params.t
 SHA1 f24148351293798048b857fa588db90791465b20 t/SQL/Select-from-clause.t
 SHA1 c2363231ef5900b94c4b5b2f74388fea5e70b04e t/SQL/Select-group-by-clause.t
-SHA1 2abdf3d7f6b5f5d87cbc53cd63d4ae21b13347c8 t/SQL/Select-having-clause.t
+SHA1 120a69119dfc977285aa25034f0d181a30828e7e t/SQL/Select-having-clause.t
 SHA1 3e0cc425d34af66bb38f615e0e09a776fd899939 t/SQL/Select-select-clause.t
 SHA1 e3833e011ab418a0be9c8792c147c4acfc3d69b1 t/SQL/Set.t
 SHA1 4dd41dc2a0132db1a7c021b19d669cda2efe5ee5 t/SQL/Update-bind-params.t
@@ -103,7 +103,7 @@ SHA1 32c8a04283f9726be79b6fab7bf7e5584494a598 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (GNU/Linux)
 
-iEYEARECAAYFAknTt7YACgkQ3Or3ZzQuifOIMwCg2b8qSubFoPMhkI3KK7T+P8Ca
-e58Anj9CFsnZtQX8uekaPxT5lugbcA+U
-=ZFCn
+iEYEARECAAYFAknYLCgACgkQ3Or3ZzQuifP9PgCePRpGPiODj//qPzuQwmvXtHF/
+760AoOWw/XAvGySCbDE53vjUYOtbDQzE
+=DdrZ
 -----END PGP SIGNATURE-----

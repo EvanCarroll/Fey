@@ -1,6 +1,6 @@
 ---
 name: Fey
-version: 0.25
+version: 0.26
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Better SQL Generation Through Perl
@@ -33,7 +33,7 @@ recommends:
 provides:
   Fey:
     file: lib/Fey.pm
-    version: 0.25
+    version: 0.26
   Fey::Column:
     file: lib/Fey/Column.pm
   Fey::Column::Alias:
