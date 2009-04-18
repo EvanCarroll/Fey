@@ -53,7 +53,8 @@ sub bind_params
 
 role
 {
-    my $p = shift;
+    my $p     = shift;
+    my %extra = @_;
 
     my $name = lc $p->keyword();
 

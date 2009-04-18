@@ -24,6 +24,7 @@ lib/Fey/Role/Named.pm
 lib/Fey/Role/Orderable.pm
 lib/Fey/Role/Selectable.pm
 lib/Fey/Role/SetOperation.pm
+lib/Fey/Role/SQL/Cloneable.pm
 lib/Fey/Role/SQL/HasBindParams.pm
 lib/Fey/Role/SQL/HasLimitClause.pm
 lib/Fey/Role/SQL/HasOrderByClause.pm
@@ -75,6 +76,7 @@ t/SQL/Delete.t
 t/SQL/Insert-bind-params.t
 t/SQL/Insert.t
 t/SQL/Select-bind-params.t
+t/SQL/Select-clone.t
 t/SQL/Select-from-clause.t
 t/SQL/Select-group-by-clause.t
 t/SQL/Select-having-clause.t
@@ -82,6 +84,7 @@ t/SQL/Select-select-clause.t
 t/SQL/Set.t
 t/SQL/Update-bind-params.t
 t/SQL/Update.t
+t/SQL/Where.t
 t/Table.t
 t/Table/Alias.t
 SIGNATURE    Added here by Module::Build

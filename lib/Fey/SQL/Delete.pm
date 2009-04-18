@@ -24,6 +24,7 @@ has '_from' =>
       init_arg => undef,
     );
 
+with 'Fey::Role::SQL::Cloneable';
 
 sub delete { return $_[0] }
 
@@ -161,10 +162,19 @@ Returns the C<LIMIT> clause portion of the SQL statement as a string.
 
 =head1 ROLES
 
-This class does C<Fey::Role::SQL::HasBindParams>,
-C<Fey::Role::SQL::HasWhereClause>,
-C<Fey::Role::SQL::HasOrderByClause>, and
-C<Fey::Role::SQL::HasLimitClause> roles.
+=over 4
+
+=item * L<Fey::Role::SQL::HasBindParams>
+
+=item * L<Fey::Role::SQL::HasWhereClause>
+
+=item * L<Fey::Role::SQL::HasOrderByClause>
+
+=item * L<Fey::Role::SQL::HasLimitClause>
+
+=item * L<Fey::Role::SQL::Cloneable>
+
+=back
 
 =head1 AUTHOR
 

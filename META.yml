@@ -1,6 +1,6 @@
 ---
 name: Fey
-version: 0.26
+version: 0.27
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Better SQL Generation Through Perl
@@ -33,7 +33,7 @@ recommends:
 provides:
   Fey:
     file: lib/Fey.pm
-    version: 0.26
+    version: 0.27
   Fey::Column:
     file: lib/Fey/Column.pm
   Fey::Column::Alias:
@@ -76,6 +76,8 @@ provides:
     file: lib/Fey/Role/Named.pm
   Fey::Role::Orderable:
     file: lib/Fey/Role/Orderable.pm
+  Fey::Role::SQL::Cloneable:
+    file: lib/Fey/Role/SQL/Cloneable.pm
   Fey::Role::SQL::HasBindParams:
     file: lib/Fey/Role/SQL/HasBindParams.pm
   Fey::Role::SQL::HasLimitClause:
