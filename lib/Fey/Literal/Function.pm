@@ -12,8 +12,10 @@ use MooseX::StrictConstructor;
 
 extends 'Fey::Literal';
 
-with 'Fey::Role::Comparable', 'Fey::Role::Selectable',
-     'Fey::Role::Orderable', 'Fey::Role::Groupable';
+with 'Fey::Role::Comparable',
+     'Fey::Role::Selectable',
+     'Fey::Role::Orderable',
+     'Fey::Role::Groupable' => { excludes => 'is_groupable' };
 
 with 'Fey::Role::HasAliasName' =>
     { generated_alias_prefix => 'FUNCTION' };
@@ -26,7 +28,7 @@ has 'function' =>
 
 has 'args' =>
     ( is         => 'ro',
-      isa        => 'Fey.Type.ArrayRefOfFunctionArgs',
+      isa        => 'Fey::Types::ArrayRefOfFunctionArgs',
       default    => sub { [] },
       coerce     => 1,
     );
