@@ -1,6 +1,6 @@
 ---
 name: Fey
-version: 0.28
+version: 0.31
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Better SQL Generation Through Perl
@@ -10,6 +10,12 @@ resources:
   homepage: http://www.fey-project.org/
   license: http://dev.perl.org/licenses/
   repository: http://hg.urth.org/hg/Fey
+build_requires:
+  DBI: 0
+  Fey::Test: 0.05
+  File::Temp: 0
+  Test::MockObject: 0
+  Test::More: 0
 requires:
   Exception::Class: 0
   Exporter: 0
@@ -22,18 +28,14 @@ requires:
   MooseX::StrictConstructor: 0.07
   Scalar::Util: 0
   Task::Weaken: 0.99
-build_requires:
-  DBI: 0
-  Fey::Test: 0.05
-  File::Temp: 0
-  Test::MockObject: 0
-  Test::More: 0
 recommends:
   Test::Memory::Cycle: 0
+configure_requires:
+  Module::Build: 0.34
 provides:
   Fey:
     file: lib/Fey.pm
-    version: 0.28
+    version: 0.31
   Fey::Column:
     file: lib/Fey/Column.pm
   Fey::Column::Alias:
@@ -86,6 +88,8 @@ provides:
     file: lib/Fey/Role/SQL/HasOrderByClause.pm
   Fey::Role::SQL::HasWhereClause:
     file: lib/Fey/Role/SQL/HasWhereClause.pm
+  Fey::Role::SQL::ReturnsData:
+    file: lib/Fey/Role/SQL/ReturnsData.pm
   Fey::Role::Selectable:
     file: lib/Fey/Role/Selectable.pm
   Fey::Role::SetOperation:
@@ -128,7 +132,7 @@ provides:
     file: lib/Fey/Table/Alias.pm
   Fey::Types:
     file: lib/Fey/Types.pm
-generated_by: Module::Build version 0.280801
+generated_by: Module::Build version 0.34
 meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4

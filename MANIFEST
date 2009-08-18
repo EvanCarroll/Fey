@@ -29,6 +29,7 @@ lib/Fey/Role/SQL/HasBindParams.pm
 lib/Fey/Role/SQL/HasLimitClause.pm
 lib/Fey/Role/SQL/HasOrderByClause.pm
 lib/Fey/Role/SQL/HasWhereClause.pm
+lib/Fey/Role/SQL/ReturnsData.pm
 lib/Fey/Role/TableLike.pm
 lib/Fey/Schema.pm
 lib/Fey/SQL.pm

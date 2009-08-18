@@ -52,7 +52,7 @@ sub BUILDARGS
     {
         if ( defined $_ && blessed $_ && $_->can('is_comparable') )
         {
-            if ( $_->isa('Fey::SQL::Select') )
+            if ( $_->can('bind_params') )
             {
                 push @bind, $_->bind_params();
             }
@@ -90,10 +90,10 @@ sub BUILDARGS
 
     }
 
-    if ( grep { $_->isa('Fey::SQL::Select') } @rhs )
+    if ( grep { $_->does('Fey::Role::SQL::ReturnsData') } @rhs )
     {
         param_error "Cannot use a subselect on the right-hand side with $operator"
-            unless $operator =~ /$in_comp_re/;
+            unless $operator =~ /$eq_comp_re|$in_comp_re/;
     }
 
     if ( lc $operator eq 'between' )
@@ -122,7 +122,7 @@ sub sql
 
     my $sql = $self->_lhs()->sql_or_alias( $dbh );
 
-    if (    $self->_operator() =~ $eq_comp_re
+    if (    $self->_operator() =~ /$eq_comp_re/
          && $self->_rhs()->[0]->isa('Fey::Literal::Null') )
     {
         return
@@ -145,7 +145,7 @@ sub sql
             );
     }
 
-    if ( $self->_operator() =~ $in_comp_re )
+    if ( $self->_operator() =~ /$in_comp_re/ )
     {
         return
             (   $sql
@@ -156,6 +156,21 @@ sub sql
                   map { $_->sql_or_alias( $dbh ) }
                   @{ $self->_rhs() }
                 )
+              . ')'
+            );
+    }
+
+    if (    $self->_operator() =~ /$eq_comp_re/
+         && @{ $self->_rhs() } == 1
+         && blessed $self->_rhs()->[0]
+         && $self->_rhs()->[0]->does('Fey::Role::SQL::ReturnsData') )
+    {
+        return
+            (   $sql
+              . ' '
+              . $self->_operator()
+              . ' ('
+              . $self->_rhs()->[0]->sql_or_alias( $dbh )
               . ')'
             );
     }

@@ -13,8 +13,10 @@ parameter keyword =>
     required => 1,
 );
 
-with 'Fey::Role::SQL::HasOrderByClause',
-     'Fey::Role::SQL::HasLimitClause';
+with 'Fey::Role::Comparable',
+     'Fey::Role::SQL::HasOrderByClause',
+     'Fey::Role::SQL::HasLimitClause',
+     'Fey::Role::SQL::ReturnsData';
 
 has 'is_all' =>
     ( is      => 'rw',
@@ -49,6 +51,11 @@ sub bind_params
 {
     my $self = shift;
     return map { $_->bind_params } @{ $self->_set_elements() };
+}
+
+sub select_clause_elements
+{
+    return $_[0]->_set_elements()->[0]->select_clause_elements();
 }
 
 role
