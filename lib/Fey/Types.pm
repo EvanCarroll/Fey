@@ -3,6 +3,8 @@ package Fey::Types;
 use strict;
 use warnings;
 
+our $VERSION = '0.33';
+
 use List::AllUtils qw( all );
 use overload ();
 use Scalar::Util qw( blessed );

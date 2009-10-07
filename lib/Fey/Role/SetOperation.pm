@@ -3,9 +3,12 @@ package Fey::Role::SetOperation;
 use strict;
 use warnings;
 
+our $VERSION = '0.33';
+
+use Fey::Types;
+
 use MooseX::Role::Parameterized;
 use MooseX::Params::Validate qw( pos_validated_list );
-use Fey::Types;
 
 parameter keyword =>
 (
@@ -26,14 +29,15 @@ has 'is_all' =>
     );
 
 has '_set_elements' =>
-    ( metaclass => 'Collection::Array',
-      is        => 'ro',
-      isa       => 'ArrayRef[Fey::Types::SetOperationArg]',
-      default   => sub { [] },
-      provides  => { push  => '_add_set_elements',
-                     count => '_set_element_count',
-                   },
-      init_arg  => undef,
+    ( traits   => [ 'Array' ],
+      is       => 'bare',
+      isa      => 'ArrayRef[Fey::Types::SetOperationArg]',
+      default  => sub { [] },
+      handles  => { _add_set_elements  => 'push',
+                    _set_element_count => 'count',
+                    _set_elements      => 'elements',
+                  },
+      init_arg => undef,
     );
 
 sub id
@@ -50,12 +54,12 @@ sub all
 sub bind_params
 {
     my $self = shift;
-    return map { $_->bind_params } @{ $self->_set_elements() };
+    return map { $_->bind_params } $self->_set_elements();
 }
 
 sub select_clause_elements
 {
-    return $_[0]->_set_elements()->[0]->select_clause_elements();
+    return ( $_[0]->_set_elements())[0]->select_clause_elements();
 }
 
 role
@@ -116,7 +120,7 @@ role
         return
             ( join q{ } . $self->keyword_clause($dbh) . q{ },
               map { '(' . $_->sql($dbh) . ')' }
-              @{ $self->_set_elements() }
+              $self->_set_elements()
             );
     };
 

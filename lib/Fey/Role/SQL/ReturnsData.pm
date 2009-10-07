@@ -3,6 +3,8 @@ package Fey::Role::SQL::ReturnsData;
 use strict;
 use warnings;
 
+our $VERSION = '0.33';
+
 use Moose::Role;
 
 # This doesn't actually work with Fey::Role::SetOperation in the mix.

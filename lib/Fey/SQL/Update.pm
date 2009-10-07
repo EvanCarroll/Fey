@@ -3,6 +3,8 @@ package Fey::SQL::Update;
 use strict;
 use warnings;
 
+our $VERSION = '0.33';
+
 use Fey::Exceptions qw( param_error );
 use Fey::Literal;
 use Fey::Types;
@@ -35,13 +37,14 @@ has '_update' =>
     );
 
 has '_set_pairs' =>
-    ( metaclass => 'Collection::Array',
-      is        => 'ro',
-      isa       => 'ArrayRef[ArrayRef]',
-      default   => sub { [] },
-      provides  => { push => '_add_set_pair',
-                   },
-      init_arg  => undef,
+    ( traits   => [ 'Array' ],
+      is       => 'bare',
+      isa      => 'ArrayRef[ArrayRef]',
+      default  => sub { [] },
+      handles  => { _add_set_pair => 'push',
+                    _set_pairs    => 'elements',
+                  },
+      init_arg => undef,
     );
 
 with 'Fey::Role::SQL::Cloneable';
@@ -153,7 +156,7 @@ sub set_clause
                  map {   $self->$col_quote( $_->[0], $dbh )
                        . ' = '
                        . $_->[1]->sql( $dbh ) }
-                 @{ $self->_set_pairs() }
+                 $self->_set_pairs()
                )
            );
 }

@@ -3,9 +3,9 @@ package Fey;
 use strict;
 use warnings;
 
-our $VERSION = '0.32';
+our $VERSION = '0.33';
 
-use Moose 0.66 ();
+use Moose 0.90 ();
 
 
 1;
@@ -45,11 +45,6 @@ Fey - Better SQL Generation Through Perl
 The C<Fey> distribution contains a set of modules for representing the
 components of a DBMS schema, and for dynamically generating SQL
 queries based on that schema.
-
-=head1 EARLY VERSION WARNING
-
-B<This is still very new software, and APIs may change in future
-releases without notice. You have been warned.>
 
 =head1 USAGE
 
@@ -94,7 +89,7 @@ This is I<not> what I mean by a dynamic query ...
 
  SELECT user_id FROM User where username = ?
 
-While this is dynamic in the sense that the username is parameter-ized
+While this is dynamic in the sense that the username is parameterized
 and may change on each invocation, it is still easily handled by a
 phrasebook class. If that is all you need, I suggest checking out any
 of C<Class::Phrasebook::SQL>, C<Data::Phrasebook>, or C<SQL::Library>
@@ -227,7 +222,7 @@ right thing is just do nothing). C<Fey::SQL> does exactly that.
 Provide the core for an RDBMS-OO mapper similar to a combination of
 C<Alzabo::Runtime::Row> and C<Class::AlzaboWrapper>.
 
-At the same time, query generation and the ORM are de-coupled. You can
+At the same time, query generation and the ORM are decoupled. You can
 use L<Fey::SQL> to generate queries without having to every use the
 C<Fey::ORM> ORM.
 
@@ -265,9 +260,9 @@ supporting a new DBMS much easier. People generally know how their
 DBMS works, and if they generate an invalid query or table name, it
 will throw an error.
 
-For example, while Fey can accomodate per-DBMS query (sub)classes, it
-does not include any by default, and is capable of supporting many
-DBMS-specific features without per-DBMS classes.
+For example, while Fey can accommodate per-DBMS query (sub)classes, it does
+not include any by default, and is capable of supporting many DBMS-specific
+features without per-DBMS classes.
 
 =item *
 

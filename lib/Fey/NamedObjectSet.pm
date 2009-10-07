@@ -3,23 +3,25 @@ package Fey::NamedObjectSet;
 use strict;
 use warnings;
 
+our $VERSION = '0.33';
+
 use List::AllUtils qw( all pairwise );
 
 use Fey::Types;
 
 use Moose;
-use MooseX::AttributeHelpers;
 
 has '_set' =>
-    ( metaclass => 'Collection::Hash',
-      is        => 'ro',
-      isa       => 'HashRef[Fey::Role::Named]',
-      provides  => { set    => '_add',
-                     delete => '_delete',
-                     get    => '_get',
-                     values => '_all',
+    ( traits   => [ 'Hash' ],
+      is       => 'bare',
+      isa      => 'HashRef[Fey::Role::Named]',
+      handles  => { _get    => 'get',
+                    _add    => 'set',
+                    _delete => 'delete',
+                    _all    => 'values',
+                    _keys   => 'keys',
                    },
-      required  => 1,
+      required => 1,
     );
 
 sub BUILDARGS
@@ -68,8 +70,8 @@ sub is_same_as
     my $self  = shift;
     my $other = shift;
 
-    my @self_names  = sort keys %{ $self->_set() };
-    my @other_names = sort keys %{ $other->_set() };
+    my @self_names  = sort $self->_keys();
+    my @other_names = sort $other->_keys();
 
     return 0 unless @self_names == @other_names;
 
@@ -127,7 +129,7 @@ Given a name, this method returns the corresponding object.
 
 When given a list of names as an argument, this method returns the
 named objects in the order specified, if they exist in the set. If not
-given any arguments it returns all of the objects in th set.
+given any arguments it returns all of the objects in the set.
 
 =head2 $set->is_same_as($other_set)
 

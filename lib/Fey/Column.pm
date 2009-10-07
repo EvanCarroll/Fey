@@ -3,6 +3,8 @@ package Fey::Column;
 use strict;
 use warnings;
 
+our $VERSION = '0.33';
+
 use Scalar::Util qw( blessed weaken );
 
 use Fey::Column::Alias;
@@ -256,7 +258,7 @@ This indicates whether or not the column is auto-incremented.
 
 =item * is_nullable - defaults to 0
 
-A boolean indicating whether the column is nullab.e
+A boolean indicating whether the column is nullable.
 
 =item * default - optional
 

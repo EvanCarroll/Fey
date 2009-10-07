@@ -3,16 +3,17 @@ package Fey::Role::SQL::HasBindParams;
 use strict;
 use warnings;
 
+our $VERSION = '0.33';
+
 use Moose::Role;
 
 has '_bind_params' =>
-    ( metaclass => 'Collection::Array',
-      is        => 'ro',
-      isa       => 'ArrayRef',
-      default   => sub { [] },
-      provides  => { push => '_add_bind_param',
-                   },
-      init_arg  => undef,
+    ( traits   => [ 'Array' ],
+      is       => 'ro',
+      isa      => 'ArrayRef',
+      default  => sub { [] },
+      handles  => { _add_bind_param => 'push' },
+      init_arg => undef,
     );
 
 has 'auto_placeholders' =>
@@ -21,8 +22,8 @@ has 'auto_placeholders' =>
       default => 1,
     );
 
-# This needs to be a method and not a provides accessor so it can be
-# excluded by classes which need to exclude it.
+# This needs to be a method and not a delegated method so it can be excluded
+# by classes which need to exclude it.
 sub bind_params
 {
     return @{ $_[0]->_bind_params() };

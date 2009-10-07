@@ -3,6 +3,8 @@ package Fey::SQL::Select;
 use strict;
 use warnings;
 
+our $VERSION = '0.33';
+
 use Fey::Exceptions qw( param_error );
 use Fey::Literal;
 use Fey::Role::ColumnLike;
@@ -36,14 +38,14 @@ with 'Fey::Role::HasAliasName'
              };
 
 has '_select' =>
-    ( metaclass => 'Collection::Array',
-      is        => 'ro',
-      isa       => 'ArrayRef',
-      default   => sub { [] },
-      provides  => { push     => '_add_select_element',
-                     elements => 'select_clause_elements',
-                   },
-      init_arg  => undef,
+    ( traits   => [ 'Array' ],
+      is       => 'bare',
+      isa      => 'ArrayRef',
+      default  => sub { [] },
+      handles  => { _add_select_element    => 'push',
+                    select_clause_elements => 'elements',
+                  },
+      init_arg => undef,
     );
 
 has 'is_distinct' =>
@@ -61,38 +63,40 @@ has 'is_distinct_on' =>
     );
 
 has '_from' =>
-    ( metaclass => 'Collection::Hash',
-      is        => 'ro',
-      isa       => 'HashRef',
-      default   => sub { {} },
-      provides  => { get  => '_get_from',
-                     set  => '_set_from',
-                     keys => '_from_ids',
-                   },
-      init_arg  => undef,
+    ( traits   => [ 'Hash' ],
+      is       => 'bare',
+      isa      => 'HashRef',
+      default  => sub { {} },
+      handles  => { _get_from => 'get',
+                    _set_from => 'set',
+                    _from_ids => 'keys',
+                  },
+      init_arg => undef,
     );
 
 has '_group_by' =>
-    ( metaclass => 'Collection::Array',
-      is        => 'ro',
-      isa       => 'ArrayRef',
-      default   => sub { [] },
-      provides  => { push     => '_add_group_by_elements',
-                     empty    => '_has_group_by_elements',
-                   },
-      init_arg  => undef,
+    ( traits   => [ 'Array' ],
+      is       => 'bare',
+      isa      => 'ArrayRef',
+      default  => sub { [] },
+      handles  => { _add_group_by_elements => 'push',
+                    _has_group_by_elements => 'count',
+                    _group_by              => 'elements',
+                  },
+      init_arg => undef,
     );
 
 has '_having' =>
-    ( metaclass => 'Collection::Array',
-      is        => 'ro',
-      isa       => 'ArrayRef',
-      default   => sub { [] },
-      provides  => { push  => '_add_having_element',
-                     empty => '_has_having_elements',
-                     last  => '_last_having_element',
-                   },
-      init_arg  => undef,
+    ( traits  => [ 'Array' ],
+      is      => 'bare',
+      isa     => 'ArrayRef',
+      default => sub { [] },
+      handles => { _add_having_element  => 'push',
+                   _has_having_elements => 'count',
+                   _last_having_element => [ 'get', -1 ],
+                   _having              => 'elements',
+                 },
+      init_arg => undef,
     );
 
 with 'Fey::Role::SQL::Cloneable';
@@ -417,7 +421,7 @@ sub group_by_clause
              .
              ( join ', ',
                map { $_->sql_or_alias($dbh) }
-               @{ $self->_group_by() }
+               $self->_group_by()
              )
            );
 }
@@ -432,7 +436,7 @@ sub having_clause
     return ( 'HAVING '
              . ( join ' ',
                  map { $_->sql($dbh) }
-                 @{ $self->_having() }
+                 $self->_having()
                )
            )
 }
@@ -452,7 +456,7 @@ sub bind_params
 
           ( map { $_->bind_params() }
             grep { $_->can('bind_params') }
-            @{ $self->_having() }
+            $self->_having()
           ),
         );
 }

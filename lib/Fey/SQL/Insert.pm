@@ -3,6 +3,8 @@ package Fey::SQL::Insert;
 use strict;
 use warnings;
 
+our $VERSION = '0.33';
+
 use Fey::Types;
 use overload ();
 use Scalar::Util qw( blessed );
@@ -27,12 +29,14 @@ has '_values_spec' =>
     );
 
 has '_values' =>
-    ( metaclass => 'Collection::Array',
-      is        => 'ro',
-      isa       => 'ArrayRef[HashRef]',
-      default   => sub { [] },
-      provides  => { push => '_add_values' },
-      init_arg  => undef,
+    ( traits   => [ 'Array' ],
+      is       => 'bare',
+      isa      => 'ArrayRef[HashRef]',
+      default  => sub { [] },
+      handles  => { _add_values => 'push',
+                    _values     => 'elements',
+                  },
+      init_arg => undef,
     );
 
 with 'Fey::Role::SQL::Cloneable';
@@ -153,7 +157,7 @@ sub values_clause
     my @cols = @{ $self->_into() };
 
     my @v;
-    for my $vals ( @{ $self->_values() } )
+    for my $vals ( $self->_values() )
     {
         my $v = '(';
 

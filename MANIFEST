@@ -60,12 +60,9 @@ t/Column/Alias.t
 t/Exceptions.t
 t/FakeDBI.t
 t/FK.t
-t/kwalitee.t
 t/Literal-as-sql.t
 t/Literal.t
 t/NamedObjectSet.t
-t/pod-coverage.t
-t/pod.t
 t/Schema-memory-cycle.t
 t/Schema.t
 t/SQL-limit-clause.t
@@ -88,4 +85,9 @@ t/SQL/Update.t
 t/SQL/Where.t
 t/Table.t
 t/Table/Alias.t
+xt/kwalitee.t
+xt/pod-coverage.t
+xt/pod-spell.t
+xt/pod.t
+xt/versions-match.t
 SIGNATURE    Added here by Module::Build

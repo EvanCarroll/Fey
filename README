@@ -28,10 +28,6 @@ DESCRIPTION
     components of a DBMS schema, and for dynamically generating SQL queries
     based on that schema.
 
-EARLY VERSION WARNING
-    This is still very new software, and APIs may change in future releases
-    without notice. You have been warned.
-
 USAGE
     Loading this module does nothing. It's just here to provide docs and a
     version number for the distro.
@@ -71,7 +67,7 @@ THE CORE Fey DISTRO
 
      SELECT user_id FROM User where username = ?
 
-    While this is dynamic in the sense that the username is parameter-ized
+    While this is dynamic in the sense that the username is parameterized
     and may change on each invocation, it is still easily handled by a
     phrasebook class. If that is all you need, I suggest checking out any of
     `Class::Phrasebook::SQL', `Data::Phrasebook', or `SQL::Library' on CPAN.
@@ -187,7 +183,7 @@ HISTORY AND GOALS
     *   Provide the core for an RDBMS-OO mapper similar to a combination of
         `Alzabo::Runtime::Row' and `Class::AlzaboWrapper'.
 
-        At the same time, query generation and the ORM are de-coupled. You
+        At the same time, query generation and the ORM are decoupled. You
         can use Fey::SQL to generate queries without having to every use the
         `Fey::ORM' ORM.
 
@@ -214,7 +210,7 @@ HISTORY AND GOALS
         their DBMS works, and if they generate an invalid query or table
         name, it will throw an error.
 
-        For example, while Fey can accomodate per-DBMS query (sub)classes,
+        For example, while Fey can accommodate per-DBMS query (sub)classes,
         it does not include any by default, and is capable of supporting
         many DBMS-specific features without per-DBMS classes.
 

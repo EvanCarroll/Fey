@@ -3,6 +3,8 @@ package Fey::FK;
 use strict;
 use warnings;
 
+our $VERSION = '0.33';
+
 use Fey::Column;
 use Fey::Exceptions qw(param_error);
 use Fey::Types;
@@ -277,7 +279,7 @@ source table and one from the target.
 =head2 $fk->has_tables( $table1, $table2 )
 
 This method returns true if the foreign key includes both of the
-specified tables. The talbles can be specified by name or as
+specified tables. The tables can be specified by name or as
 C<Fey::Table> objects.
 
 =head2 $fk->has_column($column)
