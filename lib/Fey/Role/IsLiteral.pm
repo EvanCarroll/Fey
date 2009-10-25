@@ -1,4 +1,4 @@
-package Fey::Role::SQL::ReturnsData;
+package Fey::Role::IsLiteral;
 
 use strict;
 use warnings;
@@ -7,8 +7,12 @@ our $VERSION = '0.34';
 
 use Moose::Role;
 
-# This doesn't actually work with Fey::Role::SetOperation in the mix.
-#requires 'select_clause_elements';
+requires 'sql';
+
+sub id
+{
+    return $_[0]->sql('Fey::FakeDBI');
+}
 
 no Moose::Role;
 
@@ -18,24 +22,18 @@ __END__
 
 =head1 NAME
 
-Fey::Role::ReturnsData - A role for SQL queries which return data (SELECT, UNION, etc)
+Fey::Role::IsLiteral - A role for things that are literals
 
 =head1 SYNOPSIS
 
   use Moose;
 
-  with 'Fey::Role::ReturnsData';
+  with 'Fey::Role::IsLiteral';
 
 =head1 DESCRIPTION
 
-Classes which do this role represent an object which returns data from a
-query, such as C<SELECT>, C<UNION>, etc.
-
-=head1 METHODS
-
-This role provides no methods.
-
-Returns true.
+This role provides an C<id()> method that simply calls C<<
+$object->sql('Fey::FakeDBI') >>.
 
 =head1 AUTHOR
 

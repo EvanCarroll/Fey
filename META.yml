@@ -1,6 +1,6 @@
 ---
 name: Fey
-version: 0.33
+version: 0.34
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Better SQL Generation Through Perl
@@ -34,151 +34,154 @@ configure_requires:
 provides:
   Fey:
     file: lib/Fey.pm
-    version: 0.33
+    version: 0.34
   Fey::Column:
     file: lib/Fey/Column.pm
-    version: 0.33
+    version: 0.34
   Fey::Column::Alias:
     file: lib/Fey/Column/Alias.pm
-    version: 0.33
+    version: 0.34
   Fey::Exceptions:
     file: lib/Fey/Exceptions.pm
-    version: 0.33
+    version: 0.34
   Fey::FK:
     file: lib/Fey/FK.pm
-    version: 0.33
+    version: 0.34
   Fey::FakeDBI:
     file: lib/Fey/FakeDBI.pm
-    version: 0.33
+    version: 0.34
   Fey::Literal:
     file: lib/Fey/Literal.pm
-    version: 0.33
+    version: 0.34
   Fey::Literal::Function:
     file: lib/Fey/Literal/Function.pm
-    version: 0.33
+    version: 0.34
   Fey::Literal::Null:
     file: lib/Fey/Literal/Null.pm
-    version: 0.33
+    version: 0.34
   Fey::Literal::Number:
     file: lib/Fey/Literal/Number.pm
-    version: 0.33
+    version: 0.34
   Fey::Literal::String:
     file: lib/Fey/Literal/String.pm
-    version: 0.33
+    version: 0.34
   Fey::Literal::Term:
     file: lib/Fey/Literal/Term.pm
-    version: 0.33
+    version: 0.34
   Fey::NamedObjectSet:
     file: lib/Fey/NamedObjectSet.pm
-    version: 0.33
+    version: 0.34
   Fey::Placeholder:
     file: lib/Fey/Placeholder.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::ColumnLike:
     file: lib/Fey/Role/ColumnLike.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::Comparable:
     file: lib/Fey/Role/Comparable.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::Groupable:
     file: lib/Fey/Role/Groupable.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::HasAliasName:
     file: lib/Fey/Role/HasAliasName.pm
-    version: 0.33
+    version: 0.34
+  Fey::Role::IsLiteral:
+    file: lib/Fey/Role/IsLiteral.pm
+    version: 0.34
   Fey::Role::Joinable:
     file: lib/Fey/Role/Joinable.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::MakesAliasObjects:
     file: lib/Fey/Role/MakesAliasObjects.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::Named:
     file: lib/Fey/Role/Named.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::Orderable:
     file: lib/Fey/Role/Orderable.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::SQL::Cloneable:
     file: lib/Fey/Role/SQL/Cloneable.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::SQL::HasBindParams:
     file: lib/Fey/Role/SQL/HasBindParams.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::SQL::HasLimitClause:
     file: lib/Fey/Role/SQL/HasLimitClause.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::SQL::HasOrderByClause:
     file: lib/Fey/Role/SQL/HasOrderByClause.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::SQL::HasWhereClause:
     file: lib/Fey/Role/SQL/HasWhereClause.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::SQL::ReturnsData:
     file: lib/Fey/Role/SQL/ReturnsData.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::Selectable:
     file: lib/Fey/Role/Selectable.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::SetOperation:
     file: lib/Fey/Role/SetOperation.pm
-    version: 0.33
+    version: 0.34
   Fey::Role::TableLike:
     file: lib/Fey/Role/TableLike.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL:
     file: lib/Fey/SQL.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Delete:
     file: lib/Fey/SQL/Delete.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Except:
     file: lib/Fey/SQL/Except.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Fragment::Join:
     file: lib/Fey/SQL/Fragment/Join.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Fragment::Where::Boolean:
     file: lib/Fey/SQL/Fragment/Where/Boolean.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Fragment::Where::Comparison:
     file: lib/Fey/SQL/Fragment/Where/Comparison.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Fragment::Where::SubgroupEnd:
     file: lib/Fey/SQL/Fragment/Where/SubgroupEnd.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Fragment::Where::SubgroupStart:
     file: lib/Fey/SQL/Fragment/Where/SubgroupStart.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Insert:
     file: lib/Fey/SQL/Insert.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Intersect:
     file: lib/Fey/SQL/Intersect.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Select:
     file: lib/Fey/SQL/Select.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Union:
     file: lib/Fey/SQL/Union.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Update:
     file: lib/Fey/SQL/Update.pm
-    version: 0.33
+    version: 0.34
   Fey::SQL::Where:
     file: lib/Fey/SQL/Where.pm
-    version: 0.33
+    version: 0.34
   Fey::Schema:
     file: lib/Fey/Schema.pm
-    version: 0.33
+    version: 0.34
   Fey::Table:
     file: lib/Fey/Table.pm
-    version: 0.33
+    version: 0.34
   Fey::Table::Alias:
     file: lib/Fey/Table/Alias.pm
-    version: 0.33
+    version: 0.34
   Fey::Types:
     file: lib/Fey/Types.pm
-    version: 0.33
+    version: 0.34
 generated_by: Module::Build version 0.35
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html

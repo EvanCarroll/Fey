@@ -3,7 +3,7 @@ package Fey::Role::Named;
 use strict;
 use warnings;
 
-our $VERSION = '0.33';
+our $VERSION = '0.34';
 
 use Moose::Role;
 
@@ -23,7 +23,7 @@ Fey::Role::Named - A role for things with a name
 
   use Moose;
 
-  with 'Fey::Role::Name';
+  with 'Fey::Role::Named';
 
 =head1 DESCRIPTION
 

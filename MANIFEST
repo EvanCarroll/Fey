@@ -18,6 +18,7 @@ lib/Fey/Role/ColumnLike.pm
 lib/Fey/Role/Comparable.pm
 lib/Fey/Role/Groupable.pm
 lib/Fey/Role/HasAliasName.pm
+lib/Fey/Role/IsLiteral.pm
 lib/Fey/Role/Joinable.pm
 lib/Fey/Role/MakesAliasObjects.pm
 lib/Fey/Role/Named.pm
